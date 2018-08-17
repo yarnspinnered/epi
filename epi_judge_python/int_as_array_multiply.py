@@ -2,41 +2,22 @@ from test_framework import generic_test
 
 # not done
 def multiply(num1, num2):
-    def multiply_single_digit(larger, smaller):
-        res = []
-        neg_cnt = 0
-        if smaller[0] < 0:
-            neg_cnt += 1
-            smaller[0] *= -1
-        if larger[0] < 0:
-            neg_cnt += 1
-            larger[0] *= -1
-        for j in range(-1, -len(larger) - 1, -1):
-            v1 = smaller
-            v2 = larger[j]
-            if j * -1 > len(res):
-                res.insert(0, 0)
-            pdt = v1 * v2 + res[j]
-            res[j] = pdt % 10
-            if pdt // 10 > 0 :
-                if 1 - j > len(res):
-                    res.insert(pdt // 10, 0)
-                else:
-                    res[j - 1] += pdt // 10
-        if neg_cnt == 1:
-            res[0] *= -1
-        return res
-    def add_two_arrays(num1, num2):
-        shorter = num2
-        longer = num1
-        if len(num1) <= len(num2):
-            shorter = num1
-            longer = num2
-        for i in range(-1, -1 * len(shorter), -1):
-            new_sum = shorter[i] + longer[i]
-            longer[i] = new_sum % 10
-            if
-            longer[i - 1] = new_sum // 10
+    sign = -1 if (num1[0] < 0) ^ (num2[0] < 0) else 1
+    num1[0] = abs(num1[0])
+    num2[0] = abs(num2[0])
+
+    res = [0] * (len(num1) + len(num2))
+    for i in reversed(range(len(num1))):
+        for j in reversed(range(len(num2))):
+            res[i+j+1] += (num1[i] * num2[j]) % 10
+            res[i+j] += (num1[i] * num2[j]) // 10
+    i = 0
+    while res[0] == 0 and i < len(res):
+        i += 1
+    res = res[i:]
+
+    res[0] *= sign
+    return res
 
 if __name__ == '__main__':
     exit(
