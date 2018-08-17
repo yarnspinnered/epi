@@ -3,7 +3,14 @@ from test_framework import generic_test
 
 def buy_and_sell_stock_once(prices):
     # TODO - you fill in here.
-    return 0.0
+    small = float('inf')
+    profit = 0
+    for i,v in enumerate(prices):
+        if v < small:
+            small = v
+        if v - small > profit:
+            profit = v - small
+    return profit
 
 
 if __name__ == '__main__':
