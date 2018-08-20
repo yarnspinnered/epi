@@ -2,17 +2,42 @@ import functools
 
 from test_framework import generic_test
 from test_framework.test_utils import enable_executor_hook
-
-
+from queue_with_max import QueueWithMax
+# from epi_judge_python_solutions.queue_with_max_using_deque import QueueWithMax
 class TrafficElement:
     def __init__(self, time, volume):
         self.time = time
         self.volume = volume
 
+    def __lt__(self, other):
+        return self.volume < other.volume
 
+    def __eq__(self, other):
+        return self.volume == other.volume and self.time == other.time
+
+    def __repr__(self):
+        return f"time: {self.time} volume: {self.volume}"
 def calculate_traffic_volumes(A, w):
-    # TODO - you fill in here.
-    return []
+    q = QueueWithMax()
+    res = []
+    for i,x in enumerate(A):
+
+        try:
+            # print("Boolean: ",  q[0].time + w < x.time)
+            while q.q[0].time + w < x.time:
+                q.dequeue()
+            q_max = q.max()
+        except:
+            q_max = TrafficElement(0,0)
+        q.enqueue(x)
+        if q_max > x:
+            res.append(TrafficElement(x.time, q_max.volume))
+        else:
+            res.append(TrafficElement(x.time, x.volume))
+
+
+
+    return res
 
 
 @enable_executor_hook

@@ -10,35 +10,21 @@ def copy_postings_list(L):
     if not L:
         return L
 
-    def copy_node(u):
-        return PostingListNode(u.order, u.next, u.jump)
-
     u = L
     while u:
-        v = copy_node(u)
+        v = PostingListNode(u.order, u.next, u.jump)
         u.next = v
         u = u.next.next
 
     u = L
     while u:
-        jump_dst = u.jump
-        u = u.next
-        if jump_dst:
-            u.jump = jump_dst.next
-        else:
-            u.jump = jump_dst
-        u = u.next
+        if u.jump:
+            u.next.jump = u.jump.next
+        u = u.next.next
     res = L.next
     u = L
-    while u:
-        copy = u.next
-        u.next = copy.next
-        if u.next:
-            copy.next = u.next.next
-            u = u.next
-        else:
-            copy.next = None
-            u = None
+    while u.next:
+        u.next, u = u.next.next, u.next
 
     return res
 
