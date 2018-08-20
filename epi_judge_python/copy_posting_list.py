@@ -7,8 +7,40 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def copy_postings_list(L):
-    # TODO - you fill in here.
-    return None
+    if not L:
+        return L
+
+    def copy_node(u):
+        return PostingListNode(u.order, u.next, u.jump)
+
+    u = L
+    while u:
+        v = copy_node(u)
+        u.next = v
+        u = u.next.next
+
+    u = L
+    while u:
+        jump_dst = u.jump
+        u = u.next
+        if jump_dst:
+            u.jump = jump_dst.next
+        else:
+            u.jump = jump_dst
+        u = u.next
+    res = L.next
+    u = L
+    while u:
+        copy = u.next
+        u.next = copy.next
+        if u.next:
+            copy.next = u.next.next
+            u = u.next
+        else:
+            copy.next = None
+            u = None
+
+    return res
 
 
 def assert_lists_equal(orig, copy):
