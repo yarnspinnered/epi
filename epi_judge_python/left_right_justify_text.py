@@ -2,21 +2,23 @@ from test_framework import generic_test
 
 
 def justify_text(words, L):
-    res, curr_str, curr_str_len = [], [], 0
-
+    res, line, line_alphabet_count = [], [], 0
     for w in words:
-        if curr_str_len + len(w) + len(curr_str) > L:
-            for i in range(L - curr_str_len):
-                curr_str[i % max(len(curr_str) - 1, 1)] += " "
-            res.append("".join(curr_str))
-            curr_str = []
-            curr_str_len = 0
-        curr_str.append(w)
-        curr_str_len += len(w)
+        if line_alphabet_count + len(line) + len(w) <= L:
+            line.append(w)
+            line_alphabet_count += len(w)
+        else:
+            for i in range(L - line_alphabet_count):
+                line[i % max(1, len(line) - 1)] += " "
+            res.append("".join(line))
+            line = [w]
+            line_alphabet_count = len(w)
 
-    return res + [" ".join(curr_str).ljust(L)]
+    last_line = " ".join(line)
+    res.append(last_line + " " * (L - len(last_line)))
 
     return res
+
 justify_text(["Listen", "to", "many,", "speak", "to", "a", "few."], 6)
 
 if __name__ == '__main__':

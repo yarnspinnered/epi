@@ -2,24 +2,19 @@ from test_framework import generic_test
 
 
 def find_first_missing_positive(A):
+    def check(arr, idx):
+        return arr[idx] == idx + 1
     i = 0
-    if not A:
-        return 1
     while i < len(A):
-        x = A[i]
-        if x < 0 or x >= len(A):
-            i += 1
-        elif x - 1== i:
-            i += 1
-        else:
-            if A[x - 1] != x:
-                A[x - 1], A[i] = A[i], A[x - 1]
-            else:
-                i += 1
+        v = A[i]
+        if v > 0 and v <= len(A):
+            if not check(A, v -1):
+                A[i], A[v - 1] = A[v - 1], A[i]
+                continue
+        i += 1
 
-
-    for i,x in enumerate(A):
-        if i != x - 1:
+    for i,v in enumerate(A):
+        if not check(A, i):
             return i + 1
 
     return len(A) + 1
