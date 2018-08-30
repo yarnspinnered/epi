@@ -8,8 +8,17 @@ NUM_PEGS = 3
 
 
 def compute_tower_hanoi(num_rings):
-    # TODO - you fill in here.
-    return []
+    def helper(n, src_pole, dst_pole):
+        if n == 1:
+            return [(src_pole, dst_pole)]
+        remaining_pole = [x for x in range(3) if x not in [src_pole, dst_pole]][0]
+        res = []
+        res.extend(helper(n - 1, src_pole, remaining_pole))
+        res.extend(helper(1, src_pole, dst_pole))
+        res.extend(helper(n-1, remaining_pole, dst_pole))
+        return res
+
+    return helper(num_rings, 0, 2)
 
 
 @enable_executor_hook

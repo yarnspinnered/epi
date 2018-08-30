@@ -10,23 +10,51 @@ def copy_postings_list(L):
     if not L:
         return L
 
-    u = L
-    while u:
-        v = PostingListNode(u.order, u.next, u.jump)
-        u.next = v
-        u = u.next.next
+    it = L
+    while it:
+        copy = PostingListNode(it.order, it.next, it.jump)
+        it.next = copy
+        it = it.next.next
+    copy_head = L.next
 
     u = L
     while u:
         if u.jump:
             u.next.jump = u.jump.next
         u = u.next.next
-    res = L.next
-    u = L
-    while u.next:
-        u.next, u = u.next.next, u.next
+    # it = L
+    # while it:
+    #     copy = it.next
+    #     if copy.jump:
+    #         copy.jump = it.jump.next
+    #     it = it.next.next
 
-    return res
+    it = L
+    while it:
+        it.next = it.next.next
+        it = it.next
+
+    return copy_head
+    # if not L:
+    #     return L
+    #
+    # u = L
+    # while u:
+    #     v = PostingListNode(u.order, u.next, u.jump)
+    #     u.next = v
+    #     u = u.next.next
+    #
+    # u = L
+    # while u:
+    #     if u.jump:
+    #         u.next.jump = u.jump.next
+    #     u = u.next.next
+    # res = L.next
+    # u = L
+    # while u.next:
+    #     u.next, u = u.next.next, u.next
+
+    # return res
 
 
 def assert_lists_equal(orig, copy):
