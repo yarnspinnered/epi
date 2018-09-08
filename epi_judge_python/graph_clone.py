@@ -8,11 +8,24 @@ class GraphVertex:
     def __init__(self, label):
         self.label = label
         self.edges = []
-
+    #
+    # def __repr__(self):
+    #     return "GraphVertex(%i)" % (self.label)
 
 def clone_graph(graph):
-    # TODO - you fill in here.
-    return GraphVertex(0)
+    d = {graph: GraphVertex(graph.label)}
+    to_explore = collections.deque()
+    to_explore.append(graph)
+
+    while to_explore:
+        u = to_explore.popleft()
+        for nbr in u.edges:
+            if nbr not in d:
+                d[nbr] = GraphVertex(nbr.label)
+                to_explore.append(nbr)
+            d[u].edges.append(d[nbr])
+
+    return d[graph]
 
 
 def copy_labels(edges):
