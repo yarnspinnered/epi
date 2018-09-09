@@ -8,24 +8,41 @@ class GraphVertex:
     def __init__(self, label):
         self.label = label
         self.edges = []
-    #
-    # def __repr__(self):
-    #     return "GraphVertex(%i)" % (self.label)
 
 def clone_graph(graph):
-    d = {graph: GraphVertex(graph.label)}
-    to_explore = collections.deque()
-    to_explore.append(graph)
+    def DFS(start):
+        def helper(curr):
+            d[curr] = GraphVertex(curr.label)
+            for e in curr.edges:
+                if e not in explored:
+                    explored.add(e)
+                    helper(e)
+        helper(start)
 
-    while to_explore:
-        u = to_explore.popleft()
-        for nbr in u.edges:
-            if nbr not in d:
-                d[nbr] = GraphVertex(nbr.label)
-                to_explore.append(nbr)
-            d[u].edges.append(d[nbr])
+    d = {graph: GraphVertex(graph.label)}
+    explored = set([graph])
+    DFS(graph)
+
+    for k,v in d.items():
+        for e in k.edges:
+            v.edges.append(d[e])
 
     return d[graph]
+
+
+    # d = {graph: GraphVertex(graph.label)}
+    # to_explore = collections.deque()
+    # to_explore.append(graph)
+    #
+    # while to_explore:
+    #     u = to_explore.popleft()
+    #     for nbr in u.edges:
+    #         if nbr not in d:
+    #             d[nbr] = GraphVertex(nbr.label)
+    #             to_explore.append(nbr)
+    #         d[u].edges.append(d[nbr])
+    #
+    # return d[graph]
 
 
 def copy_labels(edges):
