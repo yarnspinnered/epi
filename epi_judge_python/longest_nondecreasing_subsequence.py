@@ -1,9 +1,18 @@
 from test_framework import generic_test
-
+from operator import itemgetter
 
 def longest_nondecreasing_subsequence_length(A):
-    # TODO - you fill in here.
-    return 0
+    cache = [1]
+
+    for i in range(1, len(A)):
+        longest = 1
+        for j in range(i):
+            if A[j] <= A[i]:
+                longest = max(longest, cache[j] + 1)
+        cache.append(longest)
+
+    return max(cache)
+
 
 
 if __name__ == '__main__':

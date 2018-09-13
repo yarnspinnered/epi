@@ -2,8 +2,19 @@ from test_framework import generic_test, test_utils
 
 
 def permutations(A):
-    # TODO - you fill in here.
-    return []
+    if len(A) == 1:
+        return [A]
+
+    res = []
+    last = A[-1]
+    other_perms = permutations(A[:-1])
+    for perm in other_perms:
+        for j in range(len(perm) + 1):
+            to_add = perm[:]
+            to_add.insert(j, last)
+            res.append(to_add)
+
+    return res
 
 
 if __name__ == '__main__':

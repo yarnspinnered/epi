@@ -1,3 +1,6 @@
 1) zip_list
 2) is_tree_symmetric
 3) levenshtein distance
+4) pretty_printing
+5) longest_nondecreasing_subsequence_length
+6) n_queens
