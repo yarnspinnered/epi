@@ -5,10 +5,32 @@ import math
 from test_framework import generic_test
 from test_framework.test_failure import TestFailure
 from test_framework.test_utils import enable_executor_hook
-
+from epi_judge_python_solutions.is_valid_sudoku import is_valid_sudoku
 
 def solve_sudoku(partial_assignment):
-    # TODO - you fill in here.
+    def helper(offset):
+        if offset == 81:
+            return True
+        i = offset // 9
+        j = offset % 9
+        flag = False
+        if old[i][j] != 0:
+            flag = helper(offset+1)
+        else:
+            for x in range(1,10):
+                partial_assignment[i][j] = x
+                if is_valid_sudoku(partial_assignment):
+                    flag = helper(offset + 1)
+                    if flag:
+                        break
+                    else:
+                        partial_assignment[i][j] = 0
+                else:
+                    partial_assignment[i][j] = 0
+        return flag
+
+    old = [[x for x in l] for l in partial_assignment]
+    helper(0)
     return True
 
 
