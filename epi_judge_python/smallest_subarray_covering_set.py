@@ -9,8 +9,28 @@ Subarray = collections.namedtuple('Subarray', ('start', 'end'))
 
 
 def find_smallest_subarray_covering_set(paragraph, keywords):
-    # TODO - you fill in here.
-    return Subarray(0, 0)
+    d = {}.fromkeys(keywords, 0)
+    remaining_cnt = len(keywords)
+    left = 0
+    shortest = Subarray(0, len(paragraph) - 1)
+
+    for right, w in enumerate(paragraph):
+
+        if w in d:
+            if d[w] == 0:
+                remaining_cnt -= 1
+            d[w] += 1
+        while remaining_cnt == 0:
+            if right - left  < shortest.end - shortest.start:
+                shortest = Subarray(left, right)
+            left_w = paragraph[left]
+            if left_w in d:
+                d[left_w] -= 1
+                if d[left_w] == 0:
+                    remaining_cnt += 1
+            left += 1
+
+    return shortest
 
 
 @enable_executor_hook
