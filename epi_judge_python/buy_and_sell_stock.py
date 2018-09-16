@@ -5,11 +5,12 @@ def buy_and_sell_stock_once(prices):
     # TODO - you fill in here.
     small = float('inf')
     profit = 0
-    for i,v in enumerate(prices):
-        if v < small:
-            small = v
-        if v - small > profit:
-            profit = v - small
+
+    for i,p in enumerate(prices):
+        if p - small > profit:
+            profit = p - small
+        small = min(small, p)
+
     return profit
 
 
