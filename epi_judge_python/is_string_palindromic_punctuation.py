@@ -1,9 +1,9 @@
 from test_framework import generic_test
-
+import string
 
 def is_palindrome(s):
-    # TODO - you fill in here.
-    return True
+    return all(x == y for x,y in zip(map(str.lower, filter(str.isalnum, s)),
+                                     map(str.lower, filter(str.isalnum,reversed(s)))))
 
 
 if __name__ == '__main__':

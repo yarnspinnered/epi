@@ -6,9 +6,24 @@ from test_framework.test_utils import enable_executor_hook
 
 # Assume s is a string encoded as bytearray.
 def reverse_words(s):
-    # TODO - you fill in here.
-    return
+    s.reverse()
 
+
+    def reverse_range(l,r):
+        while l < r:
+            s[l], s[r] = s[r], s[l]
+            l += 1
+            r -= 1
+
+    start, i = 0, 0
+    while i < len(s):
+        if s[i] == ord(' '):
+            reverse_range(start, i - 1)
+            start = i + 1
+        i += 1
+    reverse_range(start, i - 1)
+
+    return
 
 @enable_executor_hook
 def reverse_words_wrapper(executor, s):
