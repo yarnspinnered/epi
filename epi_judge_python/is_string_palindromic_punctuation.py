@@ -2,8 +2,20 @@ from test_framework import generic_test
 import string
 
 def is_palindrome(s):
-    return all(x == y for x,y in zip(map(str.lower, filter(str.isalnum, s)),
-                                     map(str.lower, filter(str.isalnum,reversed(s)))))
+    l = 0
+    r = len(s) - 1
+    while l < r:
+        if s[l].isalnum() and s[r].isalnum():
+            if s[l].lower() != s[r].lower():
+                return False
+            else:
+                l += 1
+                r -= 1
+        elif not s[l].isalnum():
+            l += 1
+        elif not s[r].isalnum():
+            r -= 1
+    return True
 
 
 if __name__ == '__main__':

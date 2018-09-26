@@ -21,8 +21,9 @@ def is_valid_sudoku(partial_assignment):
             has_duplicate([partial_assignment[i][j] for j in range(n)])
             or has_duplicate([partial_assignment[j][i] for j in range(n)])
             for i in range(n)):
-        return False
 
+        return False
+    print("here")
     # Check region constraints.
     region_size = int(math.sqrt(n))
     return all(not has_duplicate([
@@ -31,7 +32,8 @@ def is_valid_sudoku(partial_assignment):
             I + 1)) for b in range(region_size * J, region_size * (J + 1))
     ]) for I in range(region_size) for J in range(region_size))
 
-
+print(is_valid_sudoku([[0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 9, 0, 0, 0, 0, 0], [0, 3, 2, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [9, 0, 4, 5, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 7, 0, 0, 6], [0, 0, 0, 6, 0, 5, 2, 0, 0], [0, 0, 1, 0, 0, 0, 0, 3, 0], [0, 0, 0, 0, 6, 2, 0, 0, 0]]
+))
 # Pythonic solution that exploits the power of list comprehension.
 def is_valid_sudoku_pythonic(partial_assignment):
     region_size = int(math.sqrt(len(partial_assignment)))
@@ -44,7 +46,7 @@ def is_valid_sudoku_pythonic(partial_assignment):
         default=0) <= 1
 
 
-if __name__ == '__main__':
-    exit(
-        generic_test.generic_test_main("is_valid_sudoku.py",
-                                       "is_valid_sudoku.tsv", is_valid_sudoku))
+# if __name__ == '__main__':
+#     exit(
+#         generic_test.generic_test_main("is_valid_sudoku.py",
+#                                        "is_valid_sudoku.tsv", is_valid_sudoku))

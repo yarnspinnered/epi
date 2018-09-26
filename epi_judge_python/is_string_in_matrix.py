@@ -58,9 +58,6 @@ def is_pattern_contained_in_grid(grid, S):
             return True
         if (i,j,offset) in cache:
             return False
-
-        dirs = []
-
         if 0 <= i < len(grid) \
             and 0 <= j < len(grid[i]) \
             and grid[i][j] == S[offset] \

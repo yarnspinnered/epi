@@ -2,16 +2,15 @@ from test_framework import generic_test
 
 
 def plus_one(A):
-
-    for i in range(len(A) - 1, -1, -1):
-        if A[i] < 9:
-            A[i] += 1
+    for i in reversed(range(len(A))):
+        A[i] += 1
+        if A[i] <= 9:
             break
         else:
             A[i] = 0
-
     if A[0] == 0:
-        A = [1] + A
+        A[0] = 0
+        A.insert(0, 1)
     return A
 
 

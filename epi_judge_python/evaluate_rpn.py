@@ -1,9 +1,19 @@
 from test_framework import generic_test
-
+import string
+from operator import add, mul, floordiv, sub
 
 def evaluate(expression):
-    # TODO - you fill in here.
-    return 0
+    operators = {'+': add, '-': lambda x,y : y - x, '/': lambda x,y : y//x, '*':mul}
+    expr_list = expression.split(",")
+    stack = []
+
+    for expr in expr_list:
+        if expr in operators:
+            stack.append(operators[expr](stack.pop(), stack.pop()))
+        else:
+            stack.append(int(expr))
+
+    return stack[0]
 
 
 if __name__ == '__main__':

@@ -8,21 +8,21 @@ from test_framework.test_utils import enable_executor_hook
 def reverse_words(s):
     s.reverse()
 
+    def my_reverse(start, end):
+        while start < end:
+            s[start], s[end - 1] = s[end - 1], s[start]
+            start += 1
+            end -= 1
+    boundary = 0
 
-    def reverse_range(l,r):
-        while l < r:
-            s[l], s[r] = s[r], s[l]
-            l += 1
-            r -= 1
+    while True:
+        i = s.find(b' ', boundary)
+        if i < 0:
+            break
+        my_reverse(boundary, i)
+        boundary = i + 1
 
-    start, i = 0, 0
-    while i < len(s):
-        if s[i] == ord(' '):
-            reverse_range(start, i - 1)
-            start = i + 1
-        i += 1
-    reverse_range(start, i - 1)
-
+    my_reverse(boundary, len(s))
     return
 
 @enable_executor_hook
