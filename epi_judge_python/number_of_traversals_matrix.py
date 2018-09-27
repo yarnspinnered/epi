@@ -2,22 +2,18 @@ from test_framework import generic_test
 
 
 def number_of_ways(n, m):
-    def number_of_ways(n, m):
-        up = [0 for j in range(m)]
-        print(up)
-        curr = 0
-        for i in range(n):
-            if i == 0:
-                left = 1
-            else:
-                left = 0
-            for j in range(m):
-                curr = left + up[j]
-                up[j] = curr
-                left = curr
 
-        return up[-1]
-    return 0
+    cache = [[0 for _ in range(m)] for _ in range(n)]
+
+    for i in range(n):
+        cache[i][0] = 1
+    for j in range(m):
+        cache[0][j] = 1
+
+    for i in range(1,n):
+        for j in range(1, m):
+            cache[i][j] = cache[i - 1][j] + cache[i][j - 1]
+    return cache[-1][-1]
 
 
 if __name__ == '__main__':

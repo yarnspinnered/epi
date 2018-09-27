@@ -2,19 +2,15 @@ from test_framework import generic_test
 
 
 def is_symmetric(tree):
-    def check_symmetric(node_1, node_2):
-        if not node_1 and not node_2:
+    def helper(l,r):
+        if not l and not r:
             return True
-        elif node_1 and node_2:
-            return node_1.data == node_2.data and check_symmetric(node_1.left, node_2.right) and check_symmetric(node_1.right, node_2.left)
+        elif l and r:
+            return l.data == r.data and helper(l.left,r.right) and helper(l.right, r.left)
         else:
             return False
 
-    if not tree:
-        return True
-    else:
-        return check_symmetric(tree.left, tree.right)
-
+    return not tree or helper(tree.left, tree.right)
 
 
 if __name__ == '__main__':

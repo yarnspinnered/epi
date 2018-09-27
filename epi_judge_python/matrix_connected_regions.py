@@ -4,10 +4,18 @@ from collections import namedtuple, deque
 Point = namedtuple("Point", ["x", "y"])
 
 def flip_color(x, y, image):
-    to_flip = DFS(x,y, image)
-    for pt in to_flip:
-        image[pt.y][pt.x] = 1 if image[pt.y][pt.x]  == 0 else 0
+    base_color = image[x][y]
+    other_color = 0 if base_color else 1
 
+    def DFS(i,j):
+        if not 0 <= i < len(image) or not 0 <= j < len(image[i]) or image[i][j] != base_color:
+            return
+        else:
+            image[i][j] = other_color
+            for a,b in [(1,0), (0,1), (-1,0), (0, -1)]:
+                DFS(i + a, j + b)
+
+    DFS(x,y)
     return
 
 def BFS(i,j, image):

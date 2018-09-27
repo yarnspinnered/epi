@@ -1,19 +1,19 @@
 from test_framework import generic_test, test_utils
-
+import itertools
 
 def permutations(A):
-    if len(A) == 1:
+    if len(A) == 0:
+        return A
+    elif len(A) == 1:
         return [A]
 
     res = []
-    last = A[-1]
-    other_perms = permutations(A[:-1])
-    for perm in other_perms:
-        for j in range(len(perm) + 1):
-            to_add = perm[:]
-            to_add.insert(j, last)
-            res.append(to_add)
 
+    for perm in permutations(A[:-1]):
+        for i in range(len(perm) + 1):
+            new_perm = perm[:]
+            new_perm.insert(i, A[-1])
+            res.append(new_perm)
     return res
 
 

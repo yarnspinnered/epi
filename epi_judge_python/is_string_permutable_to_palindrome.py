@@ -3,12 +3,8 @@ from collections import Counter
 
 def can_form_palindrome(s):
     c = Counter(s)
-    num_odds = 0
-    for i,v in c.items():
-        if v % 2 == 1:
-            num_odds += 1
-
-    return num_odds < 2
+    num_odds = [k for k,v in c.items() if v % 2 == 1]
+    return len(num_odds) < 2
 
 
 if __name__ == '__main__':
