@@ -6,7 +6,7 @@ Point = namedtuple("Point", ["x", "y"])
 def flip_color(x, y, image):
     base_color = image[x][y]
     other_color = 0 if base_color else 1
-
+www
     def DFS(i,j):
         if not 0 <= i < len(image) or not 0 <= j < len(image[i]) or image[i][j] != base_color:
             return
