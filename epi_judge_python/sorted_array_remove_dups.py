@@ -8,13 +8,12 @@ from test_framework.test_utils import enable_executor_hook
 def delete_duplicates(A):
     if not A:
         return 0
-
+    prev = A[0]
     clean = 0
 
-    for i in range(1, len(A)):
-        if A[i] == A[clean]:
-            pass
-        else:
+    for i in range(1,len(A)):
+        if A[i] != prev:
+            prev = A[i]
             clean += 1
             A[clean] = A[i]
     return clean + 1
