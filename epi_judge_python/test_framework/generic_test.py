@@ -131,7 +131,7 @@ def run_tests(handler, config, res_printer):
                         problem_mapping_file.write(JS_END_PATTERN)
                     return
 
-    if config.update_js:
+    if True:
         update_test_passed(config.test_file, tests_passed)
 
     print()
