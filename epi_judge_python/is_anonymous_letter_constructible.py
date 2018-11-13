@@ -6,7 +6,7 @@ def is_letter_constructible_from_magazine(letter_text, magazine_text):
     magazine_d = Counter(magazine_text)
 
     for k,v in letter_d.items():
-        if magazine_d.get(k,0) < v:
+        if magazine_d[k] < v:
             return False
     return True
 

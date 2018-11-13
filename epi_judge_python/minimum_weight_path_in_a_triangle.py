@@ -5,19 +5,16 @@ def minimum_path_weight(triangle):
     # TODO - you fill in here.
     if not triangle:
         return 0
-    cache = [[float('inf') for node in row] for row in triangle]
-    cache[0][0] = triangle[0][0]
+    cache = [triangle[0][0]]
 
     for i in range(1, len(triangle)):
-        for j in range(i + 1):
-            candidates = []
-            if j - 1 >= 0:
-                candidates.append(cache[i-1][j-1])
-            if j < i:
-                candidates.append(cache[i-1][j])
-            cache[i][j] = min(candidates) + triangle[i][j]
+        new_cache = [0 for _ in range(i + 1)]
+        for j in range(len(new_cache)):
+            new_cache[j] = min(cache[j-a] for a in (0,1) if 0 <= j -a < len(cache))  \
+                           + triangle[i][j]
+        cache = new_cache
 
-    return min(cache[len(triangle) - 1])
+    return min(cache)
 
 #DIJKSTRA. Doesnt work there are negative edges.
 # def minimum_path_weight(triangle):

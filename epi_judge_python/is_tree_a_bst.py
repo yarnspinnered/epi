@@ -2,17 +2,13 @@ from test_framework import generic_test
 
 
 def is_binary_tree_bst(tree, low_range=float('-inf'), high_range=float('inf')):
-    def helper(tree):
-        if not tree:
-            return True, high_range, low_range
-        left_status, left_small, left_big = helper(tree.left)
-        right_status, right_small, right_big = helper(tree.right)
-        status = tree.data >= left_big and tree.data <= right_small and left_status and right_status
-        small = min(tree.data, left_small, right_small)
-        big = max(tree.data, left_big, right_big)
-        return status, small, big
-
-    return helper(tree)[0]
+    if tree is None:
+        return True
+    if is_binary_tree_bst(tree.left, low_range, high_range= tree.data) \
+        and is_binary_tree_bst(tree.right, low_range=tree.data, high_range=high_range) \
+        and low_range <= tree.data <= high_range:
+        return True
+    return False
 
 
 if __name__ == '__main__':

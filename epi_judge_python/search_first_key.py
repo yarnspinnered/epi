@@ -2,13 +2,9 @@ from test_framework import generic_test
 
 
 def search_first_of_k(A, k):
-    if not A:
-        return -1
+    l, r = 0, len(A) - 1
 
-    l = 0
-    r = len(A) - 1
     curr = -1
-
     while l <= r:
         m = (l + r)//2
         if A[m] == k:

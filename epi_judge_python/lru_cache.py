@@ -2,98 +2,90 @@ from test_framework import generic_test
 from test_framework.test_failure import TestFailure
 
 
-class my_linked_list:
-    def __init__(self, isbn = None, price = None, left = None, right = None):
-        self.price = price
-        self.isbn = isbn
-        self.left = left
-        self.right = right
-
-    def connect_left_right_to_each_other(self):
-        if self.left is not None and self.right is not None:
-            l = self.left
-            r = self.right
-            l.right = r
-            r.left = l
-
-    def add_self_to_left_of_node(self, node):
-        if node.left:
-            original_l = node.left
-            original_l.right = self
-            self.left = original_l
-            node.left = self
-            self.right = node
-        else:
-            self.left = node
-            self.right = node
-            node.left = self
-            node.right = self
+class DoublyLinkedList:
+    def __init__(self, k, v, l = None, r = None):
+        self.l = l
+        self.r = r
+        self.k = k
+        self.v = v
     def __repr__(self):
-        return "ISBN: %d val: %d" % (self.isbn, self.price)
-class linked_queue:
+        return str(self.k) + " " + str(self.v)
+class EnhancedLinkedList:
     def __init__(self, capacity):
-        self._head = None
-        self._hm = {}
         self.capacity = capacity
+        self.dict = {}
+        self.size = 0
+        self.LEFT = DoublyLinkedList(None, None)
+        self.RIGHT = DoublyLinkedList(None, None)
+        self.LEFT.r = self.RIGHT
+        self.RIGHT.l = self.LEFT
 
-    def dequeue(self, isbn):
-        if isbn not in self._hm:
-            return False
-        node = self._hm[isbn]
-        if self._head is node:
-            if node.right is node:
-                self._head = None
-            else:
-                self._head = node.right
-        node.connect_left_right_to_each_other()
-        self._hm.pop(isbn)
-        return True
+    def move_to_newest(self, node):
+        old_l, old_r = node.l, node.r
+        old_l.r = old_r
+        old_r.l = old_l
 
-    def enqueue(self, isbn, price):
-        if isbn in self._hm:
-            if self._head is not self._hm[isbn]:
-                node = self._hm[isbn]
-                node.connect_left_right_to_each_other()
-                node.add_self_to_left_of_node(self._head)
+        new_l = self.RIGHT.l
+        new_r = self.RIGHT
+        node.l, node.r = new_l, new_r
+        new_l.r, new_r.l = node, node
+
+    def remove(self, k):
+        if k in self.dict:
+            node =  self.dict[k]
+            self.size -= 1
+            old_l, old_r = node.l, node.r
+            old_l.r, old_r.l = old_r, old_l
+            del self.dict[k]
+
+            del node
+            return True
         else:
+            return False
 
-            if len(self._hm) == self.capacity:
-                if self.capacity == 1:
-                    self.dequeue(self._head.isbn)
-                else:
-                    oldest = self._head.left
-                    self.dequeue(oldest.isbn)
-            new_node = my_linked_list(isbn, price)
-            self._hm[isbn] = new_node
-            if self._head:
-                new_node.add_self_to_left_of_node(self._head)
-        self._head = self._hm[isbn]
+    def remove_oldest(self):
+        k = self.LEFT.r.k
+        self.remove(k)
+        return k
 
-    def get_key(self, key):
-        return self._hm.get(key)
 
+    def get(self, key):
+        if key in self.dict:
+            node = self.dict[key]
+            self.move_to_newest(node)
+            return node.v
+        else:
+            return -1
+
+    def add(self, key, v):
+        if key in self.dict:
+            node = self.dict[key]
+            self.move_to_newest(node)
+            return
+        else:
+            if self.size == self.capacity:
+                self.remove_oldest()
+            self.size += 1
+            new_l, new_r = self.RIGHT.l, self.RIGHT
+            node = DoublyLinkedList(key, v, new_l, new_r)
+            new_l.r, new_r.l = node, node
+            self.dict[key] = node
 
 class LruCache:
     def __init__(self, capacity):
-        self._hashtable = {}
-        self._queue = linked_queue(capacity)
+        self.d = EnhancedLinkedList(capacity)
         return
 
     def lookup(self, isbn):
 
-        if isbn in self._queue._hm:
-            price = self._queue.get_key(isbn).price
-            self._queue.dequeue(isbn)
-            self._queue.enqueue(isbn,price)
-            return price
-        return -1
+        return self.d.get(isbn)
 
     def insert(self, isbn, price):
-        self._queue.enqueue(isbn, price)
+        self.d.add(isbn, price)
         return
 
     def erase(self, isbn):
-        return self._queue.dequeue(isbn)
+        return self.d.remove(isbn)
 
 def run_test(commands):
     if len(commands) < 1 or commands[0][0] != 'LruCache':

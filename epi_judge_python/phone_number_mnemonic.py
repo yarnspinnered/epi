@@ -1,17 +1,19 @@
 from test_framework import generic_test, test_utils
 
+d = {'0': ['0'], '1': ['1'], '2': list("ABC"), '3': list("DEF"), '4': list("GHI"), '5': list("JKL"), '6': list("MNO"),
+     '7': list("PQRS"),
+     '8': list("TUV"), '9': list("WXYZ")}
+
 
 def phone_mnemonic(phone_number):
-    d = {'0':['0'], '1':['1'], '2':list("ABC"), '3':list("DEF"), '4':list("GHI"), '5':list("JKL"), '6':list("MNO"), '7':list("PQRS"),
-         '8':list("TUV"), '9':list("WXYZ")}
-
     if len(phone_number) == 1:
         return d[phone_number]
 
+    cache = phone_mnemonic(phone_number[1:])
     res = []
-    for c in d[phone_number[0]]:
-        for end in phone_mnemonic(phone_number[1:]):
-            res.append(c + end)
+    for r in cache:
+        for c in d[phone_number[0]]:
+            res.append(c + r)
     return res
 
 

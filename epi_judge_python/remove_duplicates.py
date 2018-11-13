@@ -15,7 +15,16 @@ class Name:
 
 
 def eliminate_duplicate(A):
-    # TODO - you fill in here.
+    A.sort()
+    clean, i, prev_name = 1,1, A[0].first_name
+    while i < len(A):
+        if A[i].first_name != prev_name:
+            prev_name = A[i].first_name
+            A[clean], A[i] = A[i], A[clean]
+            clean += 1
+        i += 1
+
+    del A[clean:]
     return
 
 

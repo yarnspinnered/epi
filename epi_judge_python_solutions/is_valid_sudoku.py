@@ -23,7 +23,6 @@ def is_valid_sudoku(partial_assignment):
             for i in range(n)):
 
         return False
-    print("here")
     # Check region constraints.
     region_size = int(math.sqrt(n))
     return all(not has_duplicate([

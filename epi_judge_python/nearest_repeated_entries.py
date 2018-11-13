@@ -1,19 +1,13 @@
 from test_framework import generic_test
-
+from collections import defaultdict
 
 def find_nearest_repetition(paragraph):
-    d = {}
+    d = defaultdict(lambda: float('-inf'))
+    dist = float('inf')
     for i,w in enumerate(paragraph):
-        if w in d:
-            prev, closest_so_far = d[w]
-            d[w] = (i, min(closest_so_far, i - prev))
-        else:
-            d[w] = (i, float('inf'))
-
-    res = float('inf')
-    for k,v in d.items():
-        res = min(smallest for k,(_, smallest) in d.items())
-    return -1 if res == float('inf') else res
+        dist = min(i - d[w], dist)
+        d[w] = i
+    return -1 if dist == float('inf') else dist
 
 
 if __name__ == '__main__':

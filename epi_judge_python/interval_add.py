@@ -9,8 +9,21 @@ Interval = collections.namedtuple('Interval', ('left', 'right'))
 
 
 def add_interval(disjoint_intervals, new_interval):
-    # TODO - you fill in here.
-    return []
+    i, res = 0, []
+    added_new_interval = False
+    for interval in disjoint_intervals:
+        if interval.right < new_interval.left:
+            res.append(interval)
+        elif interval.left > new_interval.right:
+            if not added_new_interval:
+                added_new_interval = True
+                res.append(new_interval)
+            res.append(interval)
+        else:
+            new_interval = Interval(min(interval.left, new_interval.left), max(interval.right, new_interval.right))
+    if not added_new_interval:
+        res.append(new_interval)
+    return res
 
 
 @enable_executor_hook

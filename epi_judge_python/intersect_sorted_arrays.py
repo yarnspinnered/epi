@@ -6,18 +6,16 @@ def intersect_two_sorted_arrays(A, B):
     i = 0
     j = 0
     while i < len(A) and j < len(B):
-        a = A[i]
-        b = B[j]
-        if a < b:
+        if A[i] < B[j]:
             i += 1
-        elif a > b:
+        elif A[i] > B[j]:
             j += 1
         else:
-            i += 1
-            j += 1
-            if len(res) == 0 or res[-1] != b:
-                res.append(b)
-
+            res.append(A[i])
+            while i < len(A) and A[i] == B[j]:
+                i += 1
+            if i >= len(A):
+                break
     return res
 
 

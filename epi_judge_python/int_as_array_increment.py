@@ -2,15 +2,12 @@ from test_framework import generic_test
 
 
 def plus_one(A):
+    carryin = 1
     for i in reversed(range(len(A))):
-        A[i] += 1
-        if A[i] <= 9:
-            break
-        else:
-            A[i] = 0
-    if A[0] == 0:
-        A[0] = 0
-        A.insert(0, 1)
+        carryin, val = (A[i] + carryin)//10, (A[i] + carryin) % 10
+        A[i] = val
+    if carryin:
+        A = [1] + A
     return A
 
 

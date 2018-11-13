@@ -2,21 +2,19 @@ from test_framework import generic_test
 
 
 def search_smallest(A):
-    def helper(l, r):
+    l,r = 0, len(A) - 1
+    res = -1
+    while l <= r:
         m = (l + r)//2
-        if m == l:
-            return m if A[m] <= A[r] else r
-        elif m == r:
-            return m if A[m] <= A[l] else l
-
-        if A[l] <= A[m] and A[m] <= A[r]:
-            return m if A[m] <= A[l] else l
-        elif A[l] > A[m]:
-            return helper(l, m)
+        if A[0] <= A[m] and (m == len(A) - 1 or A[m + 1] < A[m]):
+            res = m
+            break
+        elif A[0] <= A[m]:
+            l = m + 1
         else:
-            return helper(m, r)
+            r = m -1
 
-    return helper(0, len(A) - 1)
+    return 0 if res == len(A) - 1 else m + 1
 
 
 if __name__ == '__main__':

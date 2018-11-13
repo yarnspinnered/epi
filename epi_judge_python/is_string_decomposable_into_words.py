@@ -2,29 +2,21 @@ import functools
 
 from test_framework import generic_test
 from test_framework.test_failure import TestFailure
-from test_framework.test_utils import encommentsable_executor_hook
+from test_framework.test_utils import enable_executor_hook
 
 
 def decompose_into_dictionary_words(domain, dictionary):
-    # TODO - you fill in here.
-    indexes = [-1 for x in range(len(domain) + 1)]
-    indexes[0] = 0
+    cache = [False for _ in range(len(domain) + 1)]
+    cache[0] = True
+    decompositions = [[] for _ in range(len(domain) + 1)]
+    for j in range(1, len(domain) + 1):
+        for i in range(j):
+            if domain[i:j] in dictionary and (i == 0 or cache[i]):
+                decompositions[j] = decompositions[i] + [domain[i:j]]
+                cache[j] = True
+                break
 
-    for i in range(1, len(domain) + 1):
-        for w in dictionary:
-            if domain[(i - len(w)):i] == w and indexes[i - len(w)] != -1:
-                indexes[i] = i - len(w)
-    res = []
-    if indexes[len(domain)] != -1:
-        i = len(domain)
-
-        while i > 0:
-            idx = indexes[i]
-            res.append(domain[idx:i])
-            i = idx
-    res = res[::-1]
-    print("result: " + str(res))
-    return res
+    return False if cache[-1] == False else decompositions[-1]
 
 decompose_into_dictionary_words("ja", ['a', 'j'])
 

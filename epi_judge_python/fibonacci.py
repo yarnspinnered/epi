@@ -8,10 +8,10 @@ def fibonacci(n):
     if n <= 1:
         return n
     else:
-        for curr in range(2, n + 1):
+        for i in range(2,n + 1):
             tmp = f
             f = s
-            s = s + tmp
+            s += tmp
 
     return s
 

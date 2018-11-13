@@ -1,6 +1,6 @@
 import functools
 import random
-
+import math
 from test_framework import generic_test
 from test_framework.random_sequence_checker import (
     check_sequence_is_uniformly_random, run_func_with_retries)
@@ -12,8 +12,22 @@ def zero_one_random():
 
 
 def uniform_random(lower_bound, upper_bound):
-    # TODO - you fill in here.
-    return 0
+    # print(lower_bound, upper_bound)
+    outcome_count = (upper_bound - lower_bound + 1)
+    flip_count = math.ceil(math.log(outcome_count, 2))
+    legal = False
+
+    while not legal:
+        res = 0
+
+        for _ in range(flip_count):
+            res <<= 1
+            res |= zero_one_random()
+
+        if lower_bound <= res + lower_bound <= upper_bound:
+            legal = True
+
+    return res + lower_bound
 
 
 @enable_executor_hook

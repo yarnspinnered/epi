@@ -11,20 +11,20 @@ def dutch_flag_partition(pivot_index, A):
     if not A:
         return A
     p = A[pivot_index]
-    l,m,r = 0,0, len(A) - 1
+    l, m , r = 0, 0, len(A) - 1
+
     while m <= r:
         if A[m] < p:
             A[l], A[m] = A[m], A[l]
+            m += 1
             l += 1
-            m += 1
-        elif A[m] == p:
-            m += 1
-        else:
+        elif A[m] > p:
             A[m], A[r] = A[r], A[m]
             r -= 1
+        else:
+            m += 1
+
     return A
-
-
 
 @enable_executor_hook
 def dutch_flag_partition_wrapper(executor, A, pivot_idx):

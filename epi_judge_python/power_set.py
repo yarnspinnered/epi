@@ -2,17 +2,16 @@ from test_framework import generic_test, test_utils
 
 
 def generate_power_set(S):
-    def helper(S):
-        if len(S) == 0:
-            return [[]]
-        res = []
-        prev = helper(S[:-1])
-        for e in prev:
-            res.append(e + [S[-1]])
-
-        return (prev + res)
-
-    return helper(S)
+    def helper(i, state_so_far):
+        if i == len(S):
+            res.append(list(state_so_far))
+            return
+        else:
+            if_i_included = helper(i + 1, state_so_far + [S[i]])
+            if_i_not_included = helper(i + 1, state_so_far)
+    res= []
+    helper(0, [])
+    return res
 
 
 if __name__ == '__main__':

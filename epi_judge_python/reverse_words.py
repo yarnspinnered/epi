@@ -6,23 +6,21 @@ from test_framework.test_utils import enable_executor_hook
 
 # Assume s is a string encoded as bytearray.
 def reverse_words(s):
-    s.reverse()
+    def myReverse(start, end):
+        l, r = start, end
+        while l < r:
+            s[l], s[r] = s[r], s[l]
+            l += 1
+            r -= 1
+    myReverse(0, len(s) - 1)
 
-    def my_reverse(start, end):
-        while start < end:
-            s[start], s[end - 1] = s[end - 1], s[start]
-            start += 1
-            end -= 1
-    boundary = 0
+    i = 0
+    for j in range(len(s)):
+        if s[j] == ord(" "):
+            myReverse(i, j - 1)
+            i = j + 1
 
-    while True:
-        i = s.find(b' ', boundary)
-        if i < 0:
-            break
-        my_reverse(boundary, i)
-        boundary = i + 1
-
-    my_reverse(boundary, len(s))
+    myReverse(i, len(s) - 1)
     return
 
 @enable_executor_hook

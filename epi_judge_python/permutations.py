@@ -2,18 +2,16 @@ from test_framework import generic_test, test_utils
 import itertools
 
 def permutations(A):
-    if len(A) == 0:
-        return A
-    elif len(A) == 1:
-        return [A]
-
+    def helper(offset, state):
+        if offset == len(A):
+            res.append(list(state))
+            return
+        for j in range(offset, len(A)):
+            state[offset], state[j] = state[j], state[offset]
+            helper(offset + 1, state)
+            state[j], state[offset] = state[offset], state[j]
     res = []
-
-    for perm in permutations(A[:-1]):
-        for i in range(len(perm) + 1):
-            new_perm = perm[:]
-            new_perm.insert(i, A[-1])
-            res.append(new_perm)
+    helper(0, A[:])
     return res
 
 

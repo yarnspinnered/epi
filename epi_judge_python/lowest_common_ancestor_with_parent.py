@@ -7,9 +7,26 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def lca(node0, node1):
-    # TODO - you fill in here.
-    return None
+    def depth(u):
+        d = 0
+        while u.parent != None:
+            d += 1
+            u = u.parent
+        return d
 
+    path0, path1 = depth(node0), depth(node1)
+    diff = abs(path0 - path1)
+    if path0 > path1:
+        for i in range(diff):
+            node0 = node0.parent
+    else:
+        for i in range(diff):
+            node1 = node1.parent
+
+    while not node0 is node1:
+        node0 = node0.parent
+        node1 = node1.parent
+    return node0
 
 @enable_executor_hook
 def lca_wrapper(executor, tree, node0, node1):

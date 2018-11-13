@@ -2,15 +2,23 @@ from test_framework import generic_test
 
 
 def compute_binomial_coefficient(n, k):
-    cache = [[0 for j in range(k + 1)] for i in range(n + 1 )]
-    for i in range(n + 1):
-        cache[i][0] = 1
+    if k > n:
+        return 0
+    if k == n:
+        return 1
+    cache = [0 for j in range(k + 1)]
+    cache[0] = 1
 
     for i in range(1, n + 1):
-        for j in range(1, min(k + 1, i + 1)):
-            cache[i][j] = cache[i - 1][j - 1] + cache[i - 1][j]
+        # print("before", cache)
+        new_cache = [0 for _ in range(k + 1)]
+        new_cache[0] = 1
 
-    return cache[n][k]
+        for j in range(1, k + 1):
+            new_cache[j] = cache[j] + cache[j - 1]
+        cache = new_cache
+        # print("after: ", cache)
+    return cache[-1]
 
 
 if __name__ == '__main__':

@@ -10,7 +10,7 @@ run({
                 "total": 10001
             },
             "Python: count_bits.py": {
-                "passed": 1,
+                "passed": 10001,
                 "total": 10001
             }
         },
@@ -24,7 +24,7 @@ run({
                 "total": 10000
             },
             "Python: parity.py": {
-                "passed": 0,
+                "passed": 10000,
                 "total": 10000
             }
         },
@@ -52,7 +52,7 @@ run({
                 "total": 10000
             },
             "Python: reverse_bits.py": {
-                "passed": 0,
+                "passed": 10000,
                 "total": 10000
             }
         },
@@ -80,7 +80,7 @@ run({
                 "total": 10006
             },
             "Python: primitive_multiply.py": {
-                "passed": 3,
+                "passed": 10006,
                 "total": 10006
             }
         },
@@ -108,7 +108,7 @@ run({
                 "total": 10002
             },
             "Python: power_x_y.py": {
-                "passed": 0,
+                "passed": 10002,
                 "total": 10002
             }
         },
@@ -136,7 +136,7 @@ run({
                 "total": 20000
             },
             "Python: is_number_palindromic.py": {
-                "passed": 0,
+                "passed": 20000,
                 "total": 20000
             }
         },
@@ -150,7 +150,7 @@ run({
                 "total": 7
             },
             "Python: uniform_random_number.py": {
-                "passed": 0,
+                "passed": 7,
                 "total": 7
             }
         },
@@ -164,7 +164,7 @@ run({
                 "total": 10000
             },
             "Python: rectangle_intersection.py": {
-                "passed": 0,
+                "passed": 10000,
                 "total": 10000
             }
         }
@@ -320,7 +320,7 @@ run({
                 "total": 101
             },
             "Python: apply_permutation.py": {
-                "passed": 0,
+                "passed": 101,
                 "total": 101
             }
         },
@@ -334,7 +334,7 @@ run({
                 "total": 2001
             },
             "Python: next_permutation.py": {
-                "passed": 0,
+                "passed": 2001,
                 "total": 2001
             }
         },
@@ -348,7 +348,7 @@ run({
                 "total": 8
             },
             "Python: offline_sampling.py": {
-                "passed": 0,
+                "passed": 8,
                 "total": 8
             }
         },
@@ -362,7 +362,7 @@ run({
                 "total": 7
             },
             "Python: online_sampling.py": {
-                "passed": 0,
+                "passed": 7,
                 "total": 7
             }
         },
@@ -1041,7 +1041,7 @@ run({
                 "total": 948
             },
             "Python: lowest_common_ancestor.py": {
-                "passed": 0,
+                "passed": 948,
                 "total": 948
             }
         },
@@ -1055,7 +1055,7 @@ run({
                 "total": 948
             },
             "Python: lowest_common_ancestor_with_parent.py": {
-                "passed": 0,
+                "passed": 948,
                 "total": 948
             }
         },
@@ -1069,7 +1069,7 @@ run({
                 "total": 3849
             },
             "Python: sum_root_to_leaf.py": {
-                "passed": 0,
+                "passed": 3849,
                 "total": 3849
             }
         },
@@ -1083,7 +1083,7 @@ run({
                 "total": 7688
             },
             "Python: path_sum.py": {
-                "passed": 1,
+                "passed": 7688,
                 "total": 7688
             }
         },
@@ -1097,7 +1097,7 @@ run({
                 "total": 3852
             },
             "Python: tree_inorder.py": {
-                "passed": 0,
+                "passed": 3852,
                 "total": 3852
             }
         },
@@ -1111,7 +1111,7 @@ run({
                 "total": 3852
             },
             "Python: tree_preorder.py": {
-                "passed": 0,
+                "passed": 3852,
                 "total": 3852
             }
         },
@@ -1125,7 +1125,7 @@ run({
                 "total": 3851
             },
             "Python: kth_node_in_tree.py": {
-                "passed": 0,
+                "passed": 3851,
                 "total": 3851
             }
         },
@@ -1341,7 +1341,7 @@ run({
                 "total": 501
             },
             "Python: search_entry_equal_to_index.py": {
-                "passed": 0,
+                "passed": 501,
                 "total": 501
             }
         },
@@ -1369,7 +1369,7 @@ run({
                 "total": 2000
             },
             "Python: int_square_root.py": {
-                "passed": 0,
+                "passed": 2000,
                 "total": 2000
             }
         },
@@ -1383,7 +1383,7 @@ run({
                 "total": 11004
             },
             "Python: real_square_root.py": {
-                "passed": 0,
+                "passed": 2213,
                 "total": 11004
             }
         },
@@ -1397,7 +1397,7 @@ run({
                 "total": 194
             },
             "Python: search_row_col_sorted_matrix.py": {
-                "passed": 0,
+                "passed": 194,
                 "total": 194
             }
         },
@@ -1411,7 +1411,7 @@ run({
                 "total": 501
             },
             "Python: search_for_min_max_in_array.py": {
-                "passed": 0,
+                "passed": 501,
                 "total": 501
             }
         },
@@ -1425,7 +1425,7 @@ run({
                 "total": 503
             },
             "Python: kth_largest_in_array.py": {
-                "passed": 0,
+                "passed": 503,
                 "total": 503
             }
         },
@@ -1453,7 +1453,7 @@ run({
                 "total": 50
             },
             "Python: search_for_missing_element.py": {
-                "passed": 0,
+                "passed": 50,
                 "total": 50
             }
         }
@@ -1469,7 +1469,7 @@ run({
                 "total": 9
             },
             "Python: anagrams.py": {
-                "passed": 0,
+                "passed": 9,
                 "total": 9
             }
         },
@@ -1567,7 +1567,7 @@ run({
                 "total": 629
             },
             "Python: smallest_subarray_covering_all_values.py": {
-                "passed": 0,
+                "passed": 629,
                 "total": 629
             }
         },
@@ -1595,7 +1595,7 @@ run({
                 "total": 203
             },
             "Python: longest_contained_interval.py": {
-                "passed": 0,
+                "passed": 203,
                 "total": 203
             }
         },
@@ -1655,7 +1655,7 @@ run({
                 "total": 201
             },
             "Python: two_sorted_arrays_merge.py": {
-                "passed": 0,
+                "passed": 201,
                 "total": 201
             }
         },
@@ -1669,7 +1669,7 @@ run({
                 "total": 1001
             },
             "Python: h_index.py": {
-                "passed": 2,
+                "passed": 1001,
                 "total": 1001
             }
         },
@@ -1683,7 +1683,7 @@ run({
                 "total": 202
             },
             "Python: remove_duplicates.py": {
-                "passed": 1,
+                "passed": 202,
                 "total": 202
             }
         },
@@ -1697,7 +1697,7 @@ run({
                 "total": 308
             },
             "Python: smallest_nonconstructible_value.py": {
-                "passed": 0,
+                "passed": 308,
                 "total": 308
             }
         },
@@ -1725,7 +1725,7 @@ run({
                 "total": 103
             },
             "Python: interval_add.py": {
-                "passed": 0,
+                "passed": 103,
                 "total": 103
             }
         },
@@ -1739,7 +1739,7 @@ run({
                 "total": 191
             },
             "Python: intervals_union.py": {
-                "passed": 0,
+                "passed": 191,
                 "total": 191
             }
         },
@@ -1826,7 +1826,7 @@ run({
                 "total": 949
             },
             "Python: search_first_greater_value_in_bst.py": {
-                "passed": 1,
+                "passed": 949,
                 "total": 949
             }
         },
@@ -1840,7 +1840,7 @@ run({
                 "total": 949
             },
             "Python: k_largest_values_in_bst.py": {
-                "passed": 0,
+                "passed": 949,
                 "total": 949
             }
         },
@@ -1868,7 +1868,7 @@ run({
                 "total": 950
             },
             "Python: bst_from_preorder.py": {
-                "passed": 0,
+                "passed": 950,
                 "total": 950
             }
         },
@@ -1882,7 +1882,7 @@ run({
                 "total": 51
             },
             "Python: minimum_distance_3_sorted_arrays.py": {
-                "passed": 0,
+                "passed": 51,
                 "total": 51
             }
         },
@@ -1896,7 +1896,7 @@ run({
                 "total": 13
             },
             "Python: a_b_sqrt2.py": {
-                "passed": 0,
+                "passed": 13,
                 "total": 13
             }
         },
@@ -1910,7 +1910,7 @@ run({
                 "total": 100
             },
             "Python: bst_from_sorted_array.py": {
-                "passed": 0,
+                "passed": 100,
                 "total": 100
             }
         },
@@ -1924,7 +1924,7 @@ run({
                 "total": 959
             },
             "Python: descendant_and_ancestor_in_bst.py": {
-                "passed": 0,
+                "passed": 959,
                 "total": 959
             }
         },
@@ -1938,7 +1938,7 @@ run({
                 "total": 954
             },
             "Python: range_lookup_in_bst.py": {
-                "passed": 0,
+                "passed": 954,
                 "total": 954
             }
         },
@@ -1969,7 +1969,7 @@ run({
                 "total": 10
             },
             "Python: hanoi.py": {
-                "passed": 0,
+                "passed": 10,
                 "total": 10
             }
         },
@@ -2067,7 +2067,7 @@ run({
                 "total": 10
             },
             "Python: enumerate_trees.py": {
-                "passed": 0,
+                "passed": 10,
                 "total": 10
             }
         },
@@ -2081,7 +2081,7 @@ run({
                 "total": 400
             },
             "Python: sudoku_solve.py": {
-                "passed": 0,
+                "passed": 400,
                 "total": 400
             }
         },
@@ -2221,7 +2221,7 @@ run({
                 "total": 41
             },
             "Python: is_string_decomposable_into_words.py": {
-                "passed": 0,
+                "passed": 41,
                 "total": 41
             }
         },

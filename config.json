@@ -1,4 +1,5 @@
 {
     "timeoutSeconds": 0,
-    "numFailedTestsBeforeStop": 1
+    "numFailedTestsBeforeStop": 1,
+    "update_js": true
 }

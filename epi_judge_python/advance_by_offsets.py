@@ -2,13 +2,13 @@ from test_framework import generic_test
 
 
 def can_reach_end(A):
-    furthest, end = 0, len(A) - 1
+    i, furthest = 0, 0
 
-    i = 0
-    while i <= furthest and furthest < end:
-        furthest = max(furthest, A[i] + i)
+    while i <= furthest and i < len(A):
+        furthest = max(A[i] + i, furthest)
         i += 1
-    return furthest >= end
+
+    return furthest >= len(A) - 1
 
 
 if __name__ == '__main__':

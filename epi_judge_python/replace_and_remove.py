@@ -5,29 +5,27 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def replace_and_remove(size, s):
-    relevant = 0
-    a_cnt = 0
+    clean = 0
+    num_a = 0
     for i in range(size):
-        if s[i] == 'b':
-            s[i] = ''
-        else:
-            if s[i] == 'a':
-                a_cnt += 1
-            s[relevant] = s[i]
-            relevant += 1
+        x = s[i]
+        if x == "a":
+            num_a += 1
+        if x != "b":
+            s[clean] = x
+            clean += 1
 
-    new_iter = relevant - 1 + a_cnt
-    old_iter = relevant - 1
-    while old_iter >= 0:
-        if s[old_iter] == 'a':
-            s[new_iter], s[new_iter - 1] = 'd', 'd'
-            new_iter -= 2
+    res = right_end = num_a + clean - 1
+    for i in reversed(range(clean)):
+        x = s[i]
+        if x == "a":
+            s[right_end], s[right_end - 1] = "d", "d"
+            right_end -= 2
         else:
-            s[new_iter] = s[old_iter]
-            new_iter -= 1
-        old_iter -= 1
+            s[right_end] = x
+            right_end -= 1
 
-    return relevant+a_cnt
+    return res + 1
 
 @enable_executor_hook
 def replace_and_remove_wrapper(executor, size, s):

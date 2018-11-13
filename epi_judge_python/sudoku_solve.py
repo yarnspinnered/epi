@@ -1,37 +1,58 @@
 import copy
 import functools
 import math
+import itertools
 
 from test_framework import generic_test
 from test_framework.test_failure import TestFailure
 from test_framework.test_utils import enable_executor_hook
 from epi_judge_python_solutions.is_valid_sudoku import is_valid_sudoku
-
+from collections import Counter
 def solve_sudoku(partial_assignment):
+    def valid_to_add(i, j, val, partial_assignment):
+        # Check row constraints.
+        if any(val == partial_assignment[k][j]
+               for k in range(len(partial_assignment))):
+            return False
+
+        # Check column constraints.
+        if val in partial_assignment[i]:
+            return False
+
+        # Check region constraints.
+        region_size = int(math.sqrt(len(partial_assignment)))
+        I = i // region_size
+        J = j // region_size
+        return not any(
+            val == partial_assignment[region_size * I + a][region_size * J
+                                                           + b]
+            for a, b in itertools.product(range(region_size), repeat=2))
+
     def helper(offset):
         if offset == 81:
-            return True
-        i = offset // 9
-        j = offset % 9
-        flag = False
-        if old[i][j] != 0:
-            flag = helper(offset+1)
-        else:
-            for x in range(1,10):
-                partial_assignment[i][j] = x
-                if is_valid_sudoku(partial_assignment):
-                    flag = helper(offset + 1)
-                    if flag:
-                        break
-                    else:
-                        partial_assignment[i][j] = 0
-                else:
-                    partial_assignment[i][j] = 0
-        return flag
+            if is_valid_sudoku(state):
 
-    old = [[x for x in l] for l in partial_assignment]
-    helper(0)
-    return True
+                for i in range(9):
+                    for j in range(9):
+
+                        partial_assignment[i][j] = state[i][j]
+                return True
+            return False
+        r,c = offset // 9, offset % 9
+        if partial_assignment[r][c] != 0:
+            return helper(offset + 1)
+        for x in range(1, 10):
+            if valid_to_add(r, c, x, state):
+                state[r][c] = x
+                if helper(offset + 1):
+                    return True
+            state[r][c] = 0
+        return False
+
+    state = [[x for x in r] for r in partial_assignment]
+    solvable = helper(0)
+
+    return
 
 
 def assert_unique_seq(seq):

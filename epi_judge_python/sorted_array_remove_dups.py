@@ -8,15 +8,15 @@ from test_framework.test_utils import enable_executor_hook
 def delete_duplicates(A):
     if not A:
         return 0
-    prev = A[0]
-    clean = 0
+    legit = 0
 
-    for i in range(1,len(A)):
-        if A[i] != prev:
-            prev = A[i]
-            clean += 1
-            A[clean] = A[i]
-    return clean + 1
+    for i in range(1, len(A)):
+        x = A[i]
+        if x != A[legit] and legit < len(A) - 1:
+            legit += 1
+            A[legit] = x
+
+    return legit + 1
 
 
 @enable_executor_hook

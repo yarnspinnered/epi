@@ -2,11 +2,11 @@ from test_framework import generic_test
 
 
 def swap_bits(x, i, j):
-    bit_i = (x >> i) & 1
-    bit_j = (x >> j ) & 1
-    if bit_i != bit_j:
-        bitmask = (1 << i) | (1 << j)
-        x ^= bitmask
+    bit_i = 1 << i
+    bit_j = 1 << j
+    if (x & bit_i) >> i != (x & bit_j) >> j :
+        mask = bit_i | bit_j
+        x ^= mask
     return x
 
 

@@ -12,19 +12,17 @@ for i in range(2 ** 16):
     cache.append(curr)
 
 def reverse_bits(x):
-    end = 0xFFFF
-
-    print('start: ', bin(x))
     res = 0
+    mask = 0xFFFF
     for i in range(4):
-        print(bin(res))
-        curr = 0xFFFF & (x >> ( 16 * (3 - i)))
-        res |= (cache[curr] << (16 * i))
-    print('my answer: ', bin(res))
-    print(bin(res))
+        curr = (x & (mask << 16 * i)) >> (16 * i)
+        res |= cache[curr]<< (16 * (3- i))
+    # print(bin(res))
     return res >> 1
-print(reverse_bits(123))
-# if __name__ == '__main__':
-#     exit(
-#         generic_test.generic_test_main("reverse_bits.py", "reverse_bits.tsv",
-#                                        reverse_bits))
+
+# print(bin(1351510410656))
+# print(bin(reverse_bits(1351510410656)))
+if __name__ == '__main__':
+    exit(
+        generic_test.generic_test_main("reverse_bits.py", "reverse_bits.tsv",
+                                       reverse_bits))

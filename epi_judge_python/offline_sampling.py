@@ -5,13 +5,15 @@ from test_framework.random_sequence_checker import (
     binomial_coefficient, check_sequence_is_uniformly_random,
     compute_combination_idx, run_func_with_retries)
 from test_framework.test_utils import enable_executor_hook
-
+import random
 
 def random_sampling(k, A):
-    # TODO - you fill in here.
-    return
+    for i in range(k):
+        r = random.randint(i, len(A) - 1)
+        A[i], A[r] = A[r], A[i]
+    return A[:k]
 
-
+print(random_sampling(3, [1,2,3,4]))
 @enable_executor_hook
 def random_sampling_wrapper(executor, k, A):
     def random_sampling_runner(executor, k, A):

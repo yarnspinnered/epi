@@ -2,32 +2,20 @@ from test_framework import generic_test
 
 
 def num_combinations_for_final_score(final_score, individual_play_scores):
-    cache = [[0 for x in range(len(individual_play_scores))] for y in range(final_score + 1)]
-    cache[0] = [1] * len(individual_play_scores)
+    cache = [[0 for _ in individual_play_scores] for _ in range(final_score + 1)]
+    cache[0] = [1 for _ in individual_play_scores]
 
     for i in range(1, final_score + 1):
-        for j in range(len(individual_play_scores)):
-            play_score = individual_play_scores[j]
-            if j - 1 >=  0:
-                cache[i][j] += cache[i][j - 1]
-            if i - play_score >= 0:
-                cache[i][j] += cache[i - play_score][j]
+        if i >= individual_play_scores[0] and i % individual_play_scores[0] == 0:
+            cache[i][0] = 1
 
-    return cache[final_score][-1]
-    # sorted_scores = sorted(individual_play_scores)
-    # A = [[0]*len(sorted_scores) for x in range(1+final_score)]
-    # A[0] = [1] * len(sorted_scores)
-    #
-    # for j in range(len(sorted_scores)):
-    #     curr_play = sorted_scores[j]
-    #     for i in range(1, final_score + 1):
-    #         if j > 0:
-    #             A[i][j] += A[i][j - 1]
-    #         if i >= curr_play:
-    #             A[i][j] = A[i][j] + A[i - curr_play][j]
 
-    # return A[final_score][len(individual_play_scores) - 1]
-
+    for j in range(1, len(individual_play_scores)):
+        for i in range(1, final_score + 1):
+            cache[i][j] = cache[i][j - 1]
+            if i >= individual_play_scores[j]:
+                cache[i][j] += cache[i - individual_play_scores[j]][j]
+    return cache[final_score][len(individual_play_scores) - 1]
 num_combinations_for_final_score(12, [2,3,7])
 if __name__ == '__main__':
     exit(

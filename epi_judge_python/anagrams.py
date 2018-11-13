@@ -1,9 +1,11 @@
 from test_framework import generic_test, test_utils
-
+from collections import defaultdict
 
 def find_anagrams(dictionary):
-    # TODO - you fill in here.
-    return []
+    d = defaultdict(list)
+    for w in dictionary:
+        d["".join(sorted(w)).strip()].append(w)
+    return list(x for x in d.values() if len(x) >= 2)
 
 
 if __name__ == '__main__':

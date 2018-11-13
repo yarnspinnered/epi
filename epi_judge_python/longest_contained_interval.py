@@ -2,8 +2,20 @@ from test_framework import generic_test
 
 
 def longest_contained_range(A):
-    # TODO - you fill in here.
-    return 0
+    unprocessed = set(A)
+    longest = 0
+
+    while unprocessed:
+        x = unprocessed.pop()
+        l_x, r_x = x - 1, x + 1
+        while l_x in unprocessed:
+            unprocessed.remove(l_x)
+            l_x -= 1
+        while r_x in unprocessed:
+            unprocessed.remove(r_x)
+            r_x += 1
+        longest = max(longest, r_x - l_x - 1)
+    return longest
 
 
 if __name__ == '__main__':

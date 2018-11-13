@@ -7,11 +7,12 @@ def reverse(x):
         negative = True
         x *= -1
     res = 0
-    while x > 0:
-        rem = x % 10
+
+    while x:
+        res += x % 10
         x //= 10
-        res *= 10
-        res += rem
+        if x >0 :
+            res *= 10
 
     if negative:
         res *= -1

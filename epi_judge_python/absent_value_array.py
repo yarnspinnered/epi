@@ -3,24 +3,28 @@ from test_framework.test_failure import TestFailure
 import itertools
 
 def find_missing_element(stream):
+
     bit_arr = [0 for x in range(2**16)]
-    stream, stream_copy = itertools.tee(stream)
-    for x in stream:
+
+    it1, it2 = itertools.tee(stream)
+    for x in it1:
         bit_arr[x >> 16] += 1
 
-    for i,x in enumerate(bit_arr):
-        if x < 2 ** 16:
-            candidate = i
+
+    for i,mark in enumerate(bit_arr):
+        if mark < 2 ** 16:
+            missing_head = i
             break
 
-    bit_arr = [0 for x in range(2**16)]
-    for x in stream_copy:
-        if x >> 16 == candidate:
-            bit_arr[0x0000ffff & x] = 1
+    bit_arr = [0 for x in range(2 ** 16)]
+    for x in it2:
+        if x >> 16 == missing_head:
+            bit_arr[x & 0xFFFF] = 1
 
     for i,x in enumerate(bit_arr):
         if x == 0:
-            return i
+
+            return (missing_head << 16) | i
     return 0
 
 

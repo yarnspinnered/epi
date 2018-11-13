@@ -6,16 +6,13 @@ def n_queens(n):
         if row == n:
             res.append(list(col_placement))
             return
-
-        for j in range(n):
-            if all(j != c for c in col_placement[:row]) and \
-                all(abs(row - i) != abs(j - c) for i,c in enumerate(col_placement[:row])):
-                col_placement[row] = j
+        for c in range(n):
+            if all(abs(c-existing_c) not in (0, abs(row - i))
+                   for i,existing_c in enumerate(col_placement[:row])):
+                col_placement[row] = c
                 helper(row + 1)
-
-    res, col_placement = [],[-1] * n
+    res, col_placement = [], [0] * n
     helper(0)
-
     return res
 
 

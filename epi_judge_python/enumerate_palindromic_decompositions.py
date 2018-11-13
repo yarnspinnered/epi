@@ -2,22 +2,19 @@ from test_framework import generic_test
 
 
 def palindrome_decompositions(input):
-    def helper(offset):
-        if offset in cache:
-            return cache[offset]
-        res = []
-        for i in range(offset - 1, -1, -1):
-            if input[i:offset] == input[i:offset][::-1]:
-                prev = helper(i)
-                if not prev:
-                    res.append([input[i:offset]])
-                res += [e + [input[i:offset]] for e in prev]
-        cache[offset] = res
-        return res
+    def helper(offset, state):
+        if offset == len(input):
+            res.append(list(state))
+            return
 
-    cache = {0:[]}
+        for i in range(offset + 1, len(input) + 1):
+            candidate = input[offset:i]
+            if candidate[::-1] == candidate:
+                helper(i, state + [candidate])
 
-    return helper(len(input))
+    res = []
+    helper(0, [])
+    return res
 
 
 def comp(a, b):

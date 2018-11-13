@@ -2,8 +2,25 @@ from test_framework import generic_test
 
 
 def apply_permutation(perm, A):
-    # TODO - you fill in here.
-    return
+    visited = [False for _ in range(len(A))]
+
+    for i in range(len(A)):
+        prev = None
+        j = i
+
+        while perm[j] >= 0:
+            temp = perm[j]
+            if not prev is None:
+                prev, A[j] = A[j], prev
+
+                perm[j] = perm[j] - len(perm)
+
+            else:
+                prev = A[j]
+
+            j = temp
+
+    return A
 
 
 def apply_permutation_wrapper(perm, A):

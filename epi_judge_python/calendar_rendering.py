@@ -12,16 +12,16 @@ Event = collections.namedtuple('Event', ('start', 'finish'))
 def find_max_simultaneous_events(A):
     endpoints = [x for e in A for x in ((e.start, False), (e.finish, True)) ]
     endpoints.sort()
-
+    res = 0
     curr = 0
-    max_events = 0
     for end in endpoints:
         if not end[1]:
             curr += 1
-            max_events = max(max_events, curr)
+            res = max(curr, res)
         else:
             curr -= 1
-    return max_events
+
+    return res
 
 
 @enable_executor_hook

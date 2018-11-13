@@ -2,22 +2,26 @@ from test_framework import generic_test
 
 
 def levenshtein_distance(A, B):
-    cache = [[float('inf') for j in range(len(B) + 1)] for i in range(len(A) + 1)]
-    cache[0] = [x for x in range(len(B) + 1)]
-    for i in range(len(cache)):
+    cache = [[0 for _ in range(len(A) + 1)] for _ in range(len(B) + 1)]
+
+    for i in range(len(B) + 1):
         cache[i][0] = i
 
-    for i in range(1, len(A) + 1):
-        for j in range(1, len(B) + 1):
-            up = cache[i - 1][j]
-            left = cache[i][j - 1]
-            diag = cache[i - 1][j - 1]
-            if A[i - 1] == B[j - 1]:
-                cache[i][j] = diag
+    for j in range(len(A) + 1):
+        cache[0][j] = j
+
+    for i in range(1, len(B ) + 1):
+        for j in range(1, len(A) + 1):
+            if A[j - 1] == B[i - 1]:
+                cache[i][j] = cache[i - 1][j - 1]
             else:
-                cache[i][j] = 1 + min(up, left, diag)
-    return cache[len(A)][len(B)]
-    return 0
+                cache[i][j] = min(
+                    cache[i - 1][j],
+                    cache[i - 1][j - 1],
+                    cache[i][j - 1]
+                ) + 1
+
+    return cache[len(B)][len(A)]
 
 
 if __name__ == '__main__':

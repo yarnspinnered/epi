@@ -10,11 +10,10 @@ from test_framework.test_utils import enable_executor_hook
 def find_LCA(tree, s, b):
     if s.data <= tree.data <= b.data:
         return tree
-    elif s.data <= tree.data and b.data <= tree.data:
+    elif b.data <= tree.data:
         return find_LCA(tree.left, s, b)
     else:
         return find_LCA(tree.right, s, b)
-
 @enable_executor_hook
 def lca_wrapper(executor, tree, s, b):
     result = executor.run(

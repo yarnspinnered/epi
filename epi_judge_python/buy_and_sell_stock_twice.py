@@ -2,29 +2,29 @@ from test_framework import generic_test
 
 
 def buy_and_sell_stock_twice(prices):
-    first_profit = [0 for x in prices]
-    small = float('inf')
 
-    for i, p in enumerate(prices):
-        if p - small > first_profit[i]:
-            first_profit[i] = p - small
-        elif i > 0 :
-            first_profit[i] = first_profit[i - 1]
-        small = min(small, p)
+    #sell_cache records maximum possible profit given that sale happens on day i or earlier
+    # buy_cache records maximum possible profit given that buy happens on day i or later
+    sell_cache = [0 for x in prices]
+    buy_cache = [0 for x in prices]
 
-    second_profit = [0 for x in prices]
-    big = prices[-1]
-    for i in reversed(range(len(prices) - 1)):
-        p = prices[i]
-        if big - p > second_profit[i + 1]:
-            second_profit[i] = big - p
-        else:
-            second_profit[i] = second_profit[i + 1]
-        big = max(big, p)
+    profit, small = 0, float('inf')
+    for i,x in enumerate(prices):
+        sell_cache[i] = max(sell_cache[i - 1] if i > 0 else 0, x - small)
+        small = min(small, x)
 
-    return max(first_profit[-1], second_profit[0], max(first_profit[i] + second_profit[i + 1] for i in range(len(prices) - 1)))
+    profit, big = 0, float('-inf')
+    for i in reversed(range(len(prices))):
+        x = prices[i]
+        buy_cache[i] = max(buy_cache[i + 1] if i < len(prices) - 1 else 0, big - x)
+        big = max(big, x)
 
-buy_and_sell_stock_twice([12,11,13,9,12,8,14,13,15])
+    res = 0
+    for i in range(len(prices)):
+        res = max(res, (sell_cache[i - 1] if i > 0 else 0) + buy_cache[i])
+
+    return res
+
 
 if __name__ == '__main__':
     exit(
