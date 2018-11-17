@@ -16,19 +16,16 @@ class Color(Enum):
 
 def is_deadlocked(graph):
     def DFS(s):
-        def helper(curr):
-            flag = False
-            for e in curr.edges:
-                if e.color == Color.WHITE:
-                    e.color = Color.GREY
-                    flag = helper(e)
-                elif e.color == Color.GREY:
-                    return True
-            curr.color = Color.BLACK
-            return flag
-
-        return helper(s)
-
+        flag = False
+        for nbr in s.edges:
+            if nbr.color == Color.BLACK:
+                continue
+            if nbr.color == Color.GREY:
+                return True
+            nbr.color = Color.GREY
+            flag |= DFS(nbr)
+        s.color = Color.BLACK
+        return flag
     graph[0].color = Color.GREY
     return DFS(graph[0])
 

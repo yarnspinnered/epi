@@ -1,44 +1,41 @@
 from test_framework import generic_test
-from collections import namedtuple
+from collections import namedtuple, deque
 
 Coordinate = namedtuple("Coordinate", ["row", "col"])
 
 def fill_surrounded_regions(board):
-    def DFS(start, board, explored):
-        def helper(pos):
-            steps = [Coordinate(pos.row - 1, pos.col),
-                     Coordinate(pos.row + 1, pos.col),
-                     Coordinate(pos.row, pos.col + 1),
-                     Coordinate(pos.row, pos.col - 1)
-                     ]
-            for step in steps:
-                if step not in explored and check_valid(step, board):
-                    explored.add(step)
-                    helper(step)
 
-        if not check_valid(start, board) or start in explored:
-            return
-        explored.add(start)
-        helper(start)
-
-    if not board:
-        return
-
+    dirs = [(0, 1), (0, -1), (-1, 0), (1, 0)]
     explored = set()
 
+    # assume starting point of BFS is white
+    def BFS(i,j):
+        if (i,j) in explored:
+            return
+        q = deque()
+        explored.add((i,j))
+        q.append((i,j))
+
+        while q:
+            x,y = q.pop()
+            for dx,dy in dirs:
+                if 0 <= x + dx < len(board) and 0 <= y + dy < len(board[x+dx]) and \
+                        (x + dx, y + dy) not in explored and \
+                        board[dx + x][y + dy] == "W":
+                    explored.add((x + dx, y + dy))
+                    q.appendleft((x + dx, y + dy))
+
+    # Explore from sides
     for i in range(len(board)):
-        for j in range(len(board[0])):
-            if i == 0 or j == 0 or i == len(board) - 1 or j == len(board[0]) - 1:
-                if i == 7 and j == 9:
-                    print("asdasd")
-                DFS(Coordinate(i,j), board, explored)
-
+        for j in range(len(board[i])):
+            if board[i][j] == "W" and \
+                    (i == 0 or i == len(board) - 1 or j == 0 or j == len(board[i]) - 1):
+                BFS(i,j)
 
     for i in range(len(board)):
-        for j in range(len(board[0])):
-            if Coordinate(i,j) not in explored:
-                board[i][j] = 'B'
-
+        for j in range(len(board[i])):
+            if (i,j) not in explored:
+                board[i][j] = "B"
     return
 
 def check_valid(pos, board):

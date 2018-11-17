@@ -10,24 +10,21 @@ class GraphVertex:
         self.edges = []
 
 def clone_graph(graph):
-    def DFS(start):
-        def helper(curr):
-            d[curr] = GraphVertex(curr.label)
-            for e in curr.edges:
-                if e not in explored:
-                    explored.add(e)
-                    helper(e)
-        helper(start)
+    def dfs(u):
+        if u in table:
+            return
+        u_copy = GraphVertex(u.label)
+        table[u] = u_copy
+        for nbr in u.edges:
+            dfs(nbr)
 
-    d = {graph: GraphVertex(graph.label)}
-    explored = set([graph])
-    DFS(graph)
+    table = {}
+    dfs(graph)
+    for original, copy in table.items():
+        for e in original.edges:
+            copy.edges.append(table[e])
 
-    for k,v in d.items():
-        for e in k.edges:
-            v.edges.append(d[e])
-
-    return d[graph]
+    return table[graph]
 
 
     # d = {graph: GraphVertex(graph.label)}

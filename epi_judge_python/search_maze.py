@@ -6,77 +6,57 @@ import heapq
 from test_framework import generic_test
 from test_framework.test_failure import TestFailure
 from test_framework.test_utils import enable_executor_hook
-
+from collections import deque
 WHITE, BLACK = range(2)
 
 Coordinate = collections.namedtuple('Coordinate', ('x', 'y'))
 
 #DFS: explored set, prev data structure. A helper function marks current node explored then calls DFS on unexplored nbrs and updates prev
 def DFS(maze, s, e):
-    def helper(src):
-        possible_directions = [Coordinate(src.x - 1, src.y),
-                               Coordinate(src.x + 1, src.y),
-                               Coordinate(src.x, src.y - 1),
-                               Coordinate(src.x, src.y + 1)]
-        explored[src.x][src.y] = True
-
-        for dir in possible_directions:
-            if path_element_is_feasible(maze, src, dir) and explored[dir.x][dir.y] != True:
-                prev[dir] = src
-                helper(dir)
-
-    if not maze:
-        return []
-    explored = [[False for x in maze[0]] for y in maze]
-    explored[s.x][s.y] = True
-    prev = {s : None}
-
+    res = deque()
+    seen = set()
+    def helper(s):
+        if s == e:
+            res.appendleft(s)
+            return True
+        for a,b in [(0,1), (0, -1), (1,0), (-1, 0)]:
+            if 0 <= s.y + a < len(maze[0]) and \
+                0 <= s.x + b < len(maze) and \
+                maze[s.x + b][s.y + a] == 0 and \
+                Coordinate(s.x + b, s.y + a) not in seen:
+                seen.add(Coordinate(s.x + b, s.y + a))
+                if helper(Coordinate(s.x + b, s.y + a)):
+                    res.appendleft(s)
+                    return True
+        return False
     helper(s)
-
-    res = collections.deque()
-    if e in prev:
-        curr = e
-        while curr:
-            res.appendleft(curr)
-            curr = prev[curr]
-
-    return list(res)
+    return res
 
 #BFS : Queue, a prev map and an explored set. Get node from q, immediately mark it explored, add stuff to q and update the prev at same time
 def BFS(maze, s, e):
-    q = collections.deque([(0,s)])
-    prev = {s : None}
-    explored = set([s])
-
+    q = deque()
+    explored = {}
+    q.append(s)
+    explored[s] = None
     while q:
-        level, curr = q.pop()
-
-        if curr == e:
-            break
-        curr_level = explored.add(curr)
-        possible_directions = [Coordinate(curr.x - 1, curr.y),
-                               Coordinate(curr.x + 1, curr.y),
-                               Coordinate(curr.x, curr.y - 1),
-                               Coordinate(curr.x, curr.y + 1)]
-        for next in possible_directions:
-            if path_element_is_feasible(maze, curr, next) and next not in explored:
-                q.appendleft((level + 1, next))
-                prev[next] = curr
-
-
-    res = collections.deque()
-    if e in prev:
-        curr = e
-        while curr:
-            res.appendleft(curr)
-            curr = prev[curr]
-
-    return list(res)
-
+        s = q.pop()
+        for a, b in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
+            new_coord = Coordinate(s.x + b, s.y + a)
+            if 0 <= s.y + a < len(maze[0]) and \
+                    0 <= s.x + b < len(maze) and \
+                    maze[s.x + b][s.y + a] == 0 and \
+                    new_coord not in explored:
+                explored[new_coord] = s
+                q.appendleft(new_coord)
+    res = deque()
+    while e in explored:
+        res.appendleft(e)
+        e = explored[e]
+    return res
 
 
 def search_maze(maze, s, e):
-    return BFS(maze, s, e)
+    return DFS(maze,s,e)
 
 
 def path_element_is_feasible(maze, prev, cur):

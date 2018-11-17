@@ -2308,7 +2308,7 @@ run({
                 "total": 500
             },
             "Python: task_pairing.py": {
-                "passed": 0,
+                "passed": 500,
                 "total": 500
             }
         },
@@ -2322,7 +2322,7 @@ run({
                 "total": 501
             },
             "Python: minimum_waiting_time.py": {
-                "passed": 0,
+                "passed": 501,
                 "total": 501
             }
         },
@@ -2336,7 +2336,7 @@ run({
                 "total": 103
             },
             "Python: minimum_points_covering_intervals.py": {
-                "passed": 0,
+                "passed": 103,
                 "total": 103
             },
             "C++: two_sum.cc": {
@@ -2348,7 +2348,7 @@ run({
                 "total": 1005
             },
             "Python: two_sum.py": {
-                "passed": 3,
+                "passed": 1005,
                 "total": 1005
             }
         },
@@ -2362,7 +2362,7 @@ run({
                 "total": 1008
             },
             "Python: three_sum.py": {
-                "passed": 1,
+                "passed": 1008,
                 "total": 1008
             }
         },
@@ -2390,7 +2390,7 @@ run({
                 "total": 202
             },
             "Python: refueling_schedule.py": {
-                "passed": 0,
+                "passed": 202,
                 "total": 202
             }
         },
@@ -2404,7 +2404,7 @@ run({
                 "total": 204
             },
             "Python: max_trapped_water.py": {
-                "passed": 0,
+                "passed": 204,
                 "total": 204
             }
         },
@@ -2418,7 +2418,7 @@ run({
                 "total": 1004
             },
             "Python: largest_rectangle_under_skyline.py": {
-                "passed": 0,
+                "passed": 1004,
                 "total": 1004
             }
         }
@@ -2449,7 +2449,7 @@ run({
                 "total": 50
             },
             "Python: matrix_connected_regions.py": {
-                "passed": 0,
+                "passed": 50,
                 "total": 50
             }
         },

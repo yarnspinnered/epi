@@ -31,31 +31,21 @@ import string
 #     return -1
 
 def transform_string(D, s, t):
-    def check_adjacent(a,b):
-        if len(a) != len(b) or a == b:
-            return False
-        diff = 0
-        i = 0
-        while i < len(a) and diff <= 1:
-            if a[i] != b[i]:
-                diff += 1
-            i += 1
-        return diff <= 1
-
-    q = deque([(0,s)])
-    explored = {s}
-
+    q = deque()
+    q.append((0,s))
+    explored = set()
+    explored.add(s)
     while q:
-        steps, curr = q.pop()
+        diff, curr = q.pop()
         if curr == t:
-            return steps
+            return diff
         for i in range(len(curr)):
             for c in string.ascii_lowercase:
-                w = curr[0:i] + c + curr[i + 1:]
-                if w in D and w not in explored:
-                    explored.add(w)
-                    q.appendleft((steps + 1, w))
-
+                candidate = curr[:i] + c + curr[i + 1:]
+                if candidate not in explored:
+                    explored.add(candidate)
+                    if candidate in D:
+                        q.appendleft((diff + 1, candidate))
 
     return -1
 

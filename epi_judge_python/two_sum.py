@@ -2,8 +2,15 @@ from test_framework import generic_test
 
 
 def has_two_sum(A, t):
-    # TODO - you fill in here.
-    return True
+    l,r = 0, len(A) - 1
+    while l <= r:
+        if A[l] + A[r] == t:
+            return True
+        elif A[l] + A[r] < t:
+            l += 1
+        else:
+            r -= 1
+    return False
 
 
 if __name__ == '__main__':

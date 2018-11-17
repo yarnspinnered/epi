@@ -16,48 +16,55 @@ class GraphVertex:
         self.color = Color.UNCOLORED
 
 def is_any_placement_feasible(graph):
+
+
+    def dfs(u):
+        # print(u.d, u.edges, u.color)
+
+        uncolorable = False
+        other_col = Color.WHITE if u.color == Color.BLACK else Color.BLACK
+        for nbr in u.edges:
+            if nbr.color == u.color and u.color != Color.UNCOLORED:
+                uncolorable = True
+            else:
+                if nbr.color == Color.UNCOLORED:
+                    nbr.color = other_col
+                    uncolorable |= dfs(nbr)
+
+
+        return uncolorable
+
+    res = False
+    for g in graph:
+        if g.color == Color.UNCOLORED:
+            g.color = Color.WHITE
+            res |= dfs(g)
+
+    return not res
     # def BFS(start):
+    #     start.color = Color.WHITE
+    #     explored.add(start)
     #     q = deque()
-    #     start.d = 0
-    #     q.append(start)
+    #     q.append((0,start))
     #
     #     while q:
-    #         curr = q.popleft()
-    #
+    #         curr_level, curr = q.popleft()
     #         for e in curr.edges:
-    #             if e.d == -1:
-    #                 q.append(e)
-    #                 e.d = curr.d + 1
-    #             else:
-    #                 if e.d == curr.d:
-    #                     return False
     #
+    #             if curr_level % 2 == 0:
+    #                 next_color = Color.BLACK
+    #             else:
+    #                 next_color = Color.WHITE
+    #             if e not in explored:
+    #                 explored.add(e)
+    #                 e.color = next_color
+    #                 q.append((curr_level + 1, e))
+    #             else:
+    #                 if e.color == curr.color:
+    #                     return False
     #     return True
-    # return all([BFS(x) for x in graph if x.d == -1])
-    def BFS(start):
-        start.color = Color.WHITE
-        explored.add(start)
-        q = deque()
-        q.append((0,start))
-
-        while q:
-            curr_level, curr = q.popleft()
-            for e in curr.edges:
-
-                if curr_level % 2 == 0:
-                    next_color = Color.BLACK
-                else:
-                    next_color = Color.WHITE
-                if e not in explored:
-                    explored.add(e)
-                    e.color = next_color
-                    q.append((curr_level + 1, e))
-                else:
-                    if e.color == curr.color:
-                        return False
-        return True
-    explored = set()
-    return all([BFS(x) for x in graph if x.color == Color.UNCOLORED])
+    # explored = set()
+    # return all([BFS(x) for x in graph if x.color == Color.UNCOLORED])
 
 
 @enable_executor_hook
