@@ -884,7 +884,7 @@ run({
                 "total": 101
             },
             "Python: stack_with_max.py": {
-                "passed": 1,
+                "passed": 101,
                 "total": 101
             }
         },
@@ -926,7 +926,7 @@ run({
                 "total": 255
             },
             "Python: directory_path_normalization.py": {
-                "passed": 0,
+                "passed": 255,
                 "total": 255
             }
         },
@@ -940,7 +940,7 @@ run({
                 "total": 101
             },
             "Python: sunset_view.py": {
-                "passed": 0,
+                "passed": 101,
                 "total": 101
             }
         },
@@ -954,7 +954,7 @@ run({
                 "total": 3852
             },
             "Python: tree_level_order.py": {
-                "passed": 0,
+                "passed": 3852,
                 "total": 3852
             }
         },
@@ -1254,7 +1254,7 @@ run({
                 "total": 203
             },
             "Python: sort_increasing_decreasing_array.py": {
-                "passed": 0,
+                "passed": 203,
                 "total": 203
             }
         },
@@ -1282,7 +1282,7 @@ run({
                 "total": 51
             },
             "Python: k_closest_stars.py": {
-                "passed": 0,
+                "passed": 51,
                 "total": 51
             }
         },
@@ -1296,7 +1296,7 @@ run({
                 "total": 55
             },
             "Python: online_median.py": {
-                "passed": 0,
+                "passed": 55,
                 "total": 55
             }
         },
@@ -1310,7 +1310,7 @@ run({
                 "total": 102
             },
             "Python: k_largest_in_heap.py": {
-                "passed": 0,
+                "passed": 102,
                 "total": 102
             }
         }

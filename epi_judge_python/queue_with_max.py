@@ -6,24 +6,22 @@ from collections import deque
 class QueueWithMax:
     def __init__(self):
         self.q = deque()
-        self.possible_maxes_q = deque()
+        self.s = deque()
 
     def enqueue(self, x):
         self.q.append(x)
-        while self.possible_maxes_q and x > self.possible_maxes_q[-1]:
-            self.possible_maxes_q.pop()
-        self.possible_maxes_q.append(x)
+        while self.s and self.s[-1] < x:
+            self.s.pop()
+        self.s.append(x)
 
     def dequeue(self):
         x = self.q.popleft()
-        if x == self.possible_maxes_q[0]:
-            self.possible_maxes_q.popleft()
-        return x
+        if x == self.s[0]:
+            self.s.popleft()
 
+        return x
     def max(self):
-        if len(self.q) == 0:
-            raise IndexError("Queue is empty")
-        return self.possible_maxes_q[0]
+        return self.s[0]
 
     def __repr__(self):
         return f"Raw queue: {self.q} \n Queue with maxes: {self.possible_maxes_q}"

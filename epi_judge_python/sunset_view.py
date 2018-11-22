@@ -1,9 +1,16 @@
 from test_framework import generic_test
-
+from collections import namedtuple
 
 def examine_buildings_with_sunset(sequence):
-    # TODO - you fill in here.
-    return []
+    active = []
+    building = namedtuple("building", "height index")
+
+    for i,b in enumerate(sequence):
+        real_i = i
+        while active and active[-1].height <= b:
+            active.pop()
+        active.append(building(b,real_i))
+    return list(reversed(list(x.index for x in active)))
 
 
 def examine_buildings_with_sunset_wrapper(sequence):

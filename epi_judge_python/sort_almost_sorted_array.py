@@ -3,19 +3,16 @@ import heapq
 import itertools
 
 def sort_approximately_sorted_array(sequence, k):
-    heap = []
-    heap_iter = iter(sequence)
-
-    for x in itertools.islice(heap_iter, k):
-        heapq.heappush(heap, x)
-
-    res = []
-    for x in heap_iter:
-        heapq.heappush(heap, x)
-        res.append(heapq.heappop(heap))
-
-    while heap:
-        res.append(heapq.heappop(heap))
+    res, h = [], []
+    it = iter(sequence)
+    while True:
+        try:
+            while len(h) < k:
+                heapq.heappush(h, next(it))
+            res.append(heapq.heappop(h))
+        except StopIteration:
+            res += heapq.nsmallest(len(sequence), h)
+            break
 
     return res
 

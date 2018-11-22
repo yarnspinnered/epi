@@ -6,16 +6,14 @@ class Queue:
         self.main_stack, self.secondary_stack = [], []
     def enqueue(self, x):
         self.main_stack.append(x)
-        return
 
     def dequeue(self):
+        if not self.main_stack and not self.secondary_stack:
+            raise IndexError("empty")
         if not self.secondary_stack:
             while self.main_stack:
                 self.secondary_stack.append(self.main_stack.pop())
-        if self.secondary_stack:
-            return self.secondary_stack.pop()
-        else:
-            raise IndexError("Empty")
+        return self.secondary_stack.pop()
 
 
 def queue_tester(ops):

@@ -3,20 +3,24 @@ import string
 from operator import add, mul, floordiv, sub
 
 def evaluate(expression):
-    operators = {'+': add, '-': lambda x,y : y - x, '/': lambda x,y : y//x, '*':mul}
+    operators = {"+":add, "*":mul, "/":floordiv, "-":sub}
     expr_list = expression.split(",")
-    stack = []
 
-    for expr in expr_list:
-        if expr in operators:
-            stack.append(operators[expr](stack.pop(), stack.pop()))
+    s = []
+
+    for exp in expr_list:
+        if not exp in operators:
+            s.append(exp)
         else:
-            stack.append(int(expr))
+            b,a = int(s.pop()), int(s.pop())
+            s.append(operators[exp](a,b))
 
-    return stack[0]
+    return int(s[0])
 
 
 if __name__ == '__main__':
     exit(
         generic_test.generic_test_main("evaluate_rpn.py", 'evaluate_rpn.tsv',
                                        evaluate))
+
+
