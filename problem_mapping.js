@@ -2914,7 +2914,7 @@ run({
                 "total": 200
             },
             "Python: defective_jugs.py": {
-                "passed": 2,
+                "passed": 200,
                 "total": 200
             }
         },
@@ -2942,7 +2942,7 @@ run({
                 "total": 3829
             },
             "Python: max_safe_height.py": {
-                "passed": 102,
+                "passed": 3829,
                 "total": 3829
             }
         },
@@ -2996,7 +2996,7 @@ run({
                 "total": 1001
             },
             "Python: max_water_trappable.py": {
-                "passed": 0,
+                "passed": 1001,
                 "total": 1001
             }
         },
@@ -3010,7 +3010,7 @@ run({
                 "total": 265
             },
             "Python: search_frequent_items.py": {
-                "passed": 0,
+                "passed": 265,
                 "total": 265
             }
         },
@@ -3024,7 +3024,7 @@ run({
                 "total": 102
             },
             "Python: longest_subarray_with_sum_constraint.py": {
-                "passed": 0,
+                "passed": 102,
                 "total": 102
             }
         },
@@ -3038,7 +3038,7 @@ run({
                 "total": 50
             },
             "Python: road_network.py": {
-                "passed": 0,
+                "passed": 50,
                 "total": 50
             }
         },
@@ -3052,7 +3052,7 @@ run({
                 "total": 201
             },
             "Python: arbitrage.py": {
-                "passed": 2,
+                "passed": 201,
                 "total": 201
             }
         }

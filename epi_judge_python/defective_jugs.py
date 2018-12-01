@@ -8,8 +8,22 @@ Jug = collections.namedtuple('Jug', ('low', 'high'))
 
 
 def check_feasible(jugs, L, H):
-    # TODO - you fill in here.
-    return True
+    cache = {}
+
+    def solve_feasible(L,H):
+        if (L,H) in cache:
+            return cache[(L,H)]
+        if L < 0 or H < 0 or L > H:
+            return False
+        res = False
+        for j in jugs:
+            if (L <= j.low and j.high <= H) or solve_feasible(L - j.low, H - j.high):
+                cache[(L,H)] = True
+                return True
+        cache[(L,H)] = False
+        return False
+
+    return solve_feasible(L,H)
 
 
 @enable_executor_hook

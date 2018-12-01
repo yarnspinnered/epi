@@ -2,8 +2,18 @@ from test_framework import generic_test
 
 
 def calculate_trapping_water(heights):
-    # TODO - you fill in here.
-    return 0
+    max_h = heights.index(max(heights))
+
+    def water_till_end(heights):
+        running_sum , highest_so_far = 0, float('-inf')
+        for h in heights:
+            if h > highest_so_far:
+                highest_so_far = h
+            else:
+                running_sum += highest_so_far - h
+        return running_sum
+
+    return water_till_end(heights[:max_h]) + water_till_end(reversed(heights[max_h + 1:]))
 
 
 if __name__ == '__main__':
