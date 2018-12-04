@@ -3,25 +3,37 @@ import epi.test_framework.EpiTest;
 import epi.test_framework.EpiUserType;
 import epi.test_framework.GenericTest;
 import epi.test_framework.TestFailure;
-import java.util.List;
-import java.util.NoSuchElementException;
-public class StackWithMax {
 
+import java.util.*;
+
+public class StackWithMax {
+  private static class Pair {
+    int val, max;
+    public Pair(int v, int m){
+      val = v;
+      max = m;
+    }
+  }
   public static class Stack {
+    Deque<Pair> arr = new ArrayDeque<>();
+
     public boolean empty() {
-      // TODO - you fill in here.
-      return true;
+      return arr.size() == 0;
     }
     public Integer max() {
-      // TODO - you fill in here.
-      return 0;
+      return arr.peekFirst() != null ? arr.peekFirst().max : 0;
     }
     public Integer pop() {
-      // TODO - you fill in here.
-      return 0;
+      Pair currTop = arr.removeFirst();
+      return currTop.val;
     }
     public void push(Integer x) {
-      // TODO - you fill in here.
+      if (arr.size() == 0){
+        arr.push(new Pair(x,x));
+        return;
+      }
+      int newMax = Math.max(x, arr.peekFirst().max);
+      arr.push(new Pair(x, newMax));
       return;
     }
   }

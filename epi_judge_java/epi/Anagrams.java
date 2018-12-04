@@ -3,15 +3,30 @@ import epi.test_framework.EpiTest;
 import epi.test_framework.EpiTestComparator;
 import epi.test_framework.LexicographicalListComparator;
 import epi.test_framework.GenericTest;
-import java.util.Collections;
-import java.util.List;
+
+import java.util.*;
 import java.util.function.BiPredicate;
 public class Anagrams {
   @EpiTest(testDataFile = "anagrams.tsv")
 
   public static List<List<String>> findAnagrams(List<String> dictionary) {
-    // TODO - you fill in here.
-    return null;
+    HashMap<String, List<String>> stringDict = new HashMap<>();
+    for (String s: dictionary){
+      char[] charSeq = s.toCharArray();
+      Arrays.sort(charSeq);
+      String canonicalForm = new String(charSeq);
+      if (stringDict.containsKey(canonicalForm)){
+        stringDict.get(canonicalForm).add(s);
+      } else {
+        List<String> newList = new LinkedList<>();
+        newList.add(s);
+        stringDict.put(canonicalForm, newList);
+      }
+    }
+
+    List<List<String>> res = new ArrayList<>(stringDict.values());
+    res.removeIf((List<String> l ) -> l.size() < 2 );
+    return res;
   }
   @EpiTestComparator
   public static BiPredicate<List<List<String>>, List<List<String>>> comp =

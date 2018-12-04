@@ -3,18 +3,39 @@ import epi.test_framework.EpiTest;
 import epi.test_framework.GenericTest;
 import epi.test_framework.TestFailure;
 import epi.test_framework.TimedExecutor;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Deque;
-import java.util.List;
-import java.util.LinkedList;
+
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 public class Hanoi {
 
   private static final int NUM_PEGS = 3;
 
+  public static void computeSteps(List<Deque<Integer>> pegs, int src, int des, int mid, int moveCount, List<List<Integer>> res){
+    Deque<Integer> srcPole = pegs.get(src);
+    Deque<Integer> desPole = pegs.get(des);
+    Deque<Integer> midPole = pegs.get(mid);
+
+    if (moveCount > 0){
+      computeSteps(pegs, src, mid, des, moveCount - 1, res);
+      desPole.addLast(srcPole.removeLast());
+      res.add(List.of(src, des));
+      computeSteps(pegs, mid, des, src, moveCount - 1, res);
+
+
+    }
+  }
   public static List<List<Integer>> computeTowerHanoi(int numRings) {
-    // TODO - you fill in here.
-    return Collections.emptyList();
+    List<Deque<Integer>> pegs = IntStream.range(0, NUM_PEGS)
+            .mapToObj(i -> new ArrayDeque<Integer>())
+            .collect(Collectors.toList());
+    for (int i = 0;  i < numRings; i ++){
+      pegs.get(0).add(i);
+    }
+    List<List<Integer>> res = new ArrayList<List<Integer>>();
+    computeSteps(pegs, 0, 2, 1, numRings, res);
+    return res;
   }
   @EpiTest(testDataFile = "hanoi.tsv")
   public static void computeTowerHanoiWrapper(TimedExecutor executor,

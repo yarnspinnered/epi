@@ -4,12 +4,24 @@ import epi.test_framework.GenericTest;
 import epi.test_framework.TestFailure;
 import epi.test_framework.TimedExecutor;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 public class EvenOddArray {
 
   public static void evenOdd(List<Integer> A) {
     // TODO - you fill in here.
+    int l = 0;
+    int r = A.size() - 1;
+    while (l < r){
+      if (A.get(l) % 2 == 0){
+        l++;
+      } else {
+        Collections.swap(A, l, r);
+        r--;
+      }
+
+    }
     return;
   }
   @EpiTest(testDataFile = "even_odd_array.tsv")

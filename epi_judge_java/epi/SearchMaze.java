@@ -3,9 +3,9 @@ import epi.test_framework.EpiTest;
 import epi.test_framework.EpiUserType;
 import epi.test_framework.GenericTest;
 import epi.test_framework.TestFailure;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+
+import java.util.*;
+
 public class SearchMaze {
   @EpiUserType(ctorParams = {int.class, int.class})
 
@@ -33,14 +33,60 @@ public class SearchMaze {
       }
       return true;
     }
+    @Override
+    public int hashCode(){
+      return Objects.hash(this.x, this.y);
+    }
+    @Override
+    public String toString(){
+      return this.x + " " + this.y;
+    }
   }
 
   public enum Color { WHITE, BLACK }
 
+  public static boolean dfs(List<List<Color>> maze, HashMap<Coordinate, Coordinate> parent, Coordinate currPos, Coordinate destPos){
+    if (currPos.equals(destPos)){
+      return true;
+    }
+    List<List<Integer>> directions = List.of(List.of(0,1), List.of(0,-1), List.of(1,0), List.of(-1,0));
+    int x = currPos.x;
+    int y = currPos.y;
+    for (List<Integer> d : directions){
+      int new_x = x + d.get(0);
+      int new_y = y + d.get(1);
+      Coordinate newPos = new Coordinate(new_x, new_y);
+      if (0 <= new_x && new_x < maze.size() && 0 <= new_y &&
+              new_y < maze.get(new_x).size()
+              && maze.get(new_x).get(new_y) == Color.WHITE
+              && !parent.containsKey(newPos)){
+        parent.put(newPos, currPos);
+        boolean success = dfs(maze, parent, newPos, destPos);
+        if (success){
+//          parent.put(newPos, currPos);
+          return true;
+        }
+      }
+    }
+    return false;
+  }
   public static List<Coordinate> searchMaze(List<List<Color>> maze,
                                             Coordinate s, Coordinate e) {
-    // TODO - you fill in here.
-    return Collections.emptyList();
+    HashMap<Coordinate, Coordinate> parent = new HashMap<>();
+    parent.put(s, null);
+    dfs(maze, parent, s, e);
+
+    Coordinate curr = e;
+    Deque<Coordinate> deque = new LinkedList<>();
+    if (parent.containsKey(e)){
+      while (e != null){
+        deque.addFirst(e);
+        e = parent.get(e);
+
+      }
+    }
+
+    return new ArrayList<Coordinate>(deque);
   }
   public static boolean pathElementIsFeasible(List<List<Integer>> maze,
                                               Coordinate prev, Coordinate cur) {

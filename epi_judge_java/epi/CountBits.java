@@ -5,8 +5,12 @@ public class CountBits {
   @EpiTest(testDataFile = "count_bits.tsv")
 
   public static short countBits(int x) {
-    // TODO - you fill in here.
-    return 0;
+    short res = 0;
+    while (x > 0){
+      res++;
+      x = x & (x - 1);
+    }
+    return res;
   }
 
   public static void main(String[] args) {
