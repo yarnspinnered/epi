@@ -2886,7 +2886,7 @@ run({
                 "total": 1001
             },
             "Python: count_inversions.py": {
-                "passed": 0,
+                "passed": 1001,
                 "total": 1001
             }
         },
@@ -2900,7 +2900,7 @@ run({
                 "total": 30
             },
             "Python: drawing_skyline.py": {
-                "passed": 0,
+                "passed": 30,
                 "total": 30
             }
         },

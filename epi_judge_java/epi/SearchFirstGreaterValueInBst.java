@@ -5,8 +5,17 @@ public class SearchFirstGreaterValueInBst {
 
   public static BstNode<Integer> findFirstGreaterThanK(BstNode<Integer> tree,
                                                        Integer k) {
-    // TODO - you fill in here.
-    return null;
+    BstNode<Integer> candidate = null;
+
+    while (tree != null){
+      if (tree.data <= k){
+        tree = tree.right;
+      } else {
+        candidate = tree;
+        tree = tree.left;
+      }
+    }
+    return candidate;
   }
   @EpiTest(testDataFile = "search_first_greater_value_in_bst.tsv")
   public static int findFirstGreaterThanKWrapper(BstNode<Integer> tree,

@@ -1,6 +1,6 @@
 import collections
 import functools
-
+from heapq import *
 from test_framework import generic_test
 from test_framework.test_utils import enable_executor_hook
 
@@ -8,9 +8,20 @@ Rectangle = collections.namedtuple('Rectangle', ('left', 'right', 'height'))
 
 
 def compute_skyline(buildings):
-    # TODO - you fill in here.
-    return []
+    min_left = min(buildings, key = lambda x: x.left).left
+    max_right = max(buildings, key = lambda x: x.right).right
+    heights = [0] * (max_right - min_left + 1)
+    for b in buildings:
+        for i in range(b.left, b.right + 1):
+            heights[i - min_left] = max(heights[i - min_left], b.height)
 
+    result = []
+    left = 0
+    for i in range(1, len(heights)):
+        if heights[i] != heights[i - 1]:
+            result.append(Rectangle(left + min_left, i - 1 + min_left, heights[i - 1]))
+            left = i
+    return result + [Rectangle(left + min_left, max_right, heights[-1])]
 
 @enable_executor_hook
 def compute_skyline_wrapper(executor, buildings):

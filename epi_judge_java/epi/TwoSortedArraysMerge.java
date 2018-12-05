@@ -6,7 +6,24 @@ public class TwoSortedArraysMerge {
 
   public static void mergeTwoSortedArrays(List<Integer> A, int m,
                                           List<Integer> B, int n) {
-    // TODO - you fill in here.
+    int toFill = m + n - 1;
+    int i = m - 1, j = n - 1;
+    while (i >= 0 && j >= 0){
+      int a = A.get(i);
+      int b = B.get(j);
+      if (a > b){
+        A.set(toFill, a);
+        i--;
+      } else {
+        A.set(toFill, b);
+        j--;
+      }
+      toFill--;
+    }
+
+    while (j >= 0){
+      A.set(toFill--, B.get(j--));
+    }
     return;
   }
   @EpiTest(testDataFile = "two_sorted_arrays_merge.tsv")
